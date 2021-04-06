@@ -31,6 +31,33 @@ class SignUpView(View):
             return redirect(reverse('homepage'))
 
 
+def edit_profile(request, user_id):
+    context = {}
+    current_user = request.user
+    initial_data = {
+        'username': current_user.username,
+        'password': current_user.password,
+        'email': current_user.email,
+        'first_name': current_user.first_name,
+        'last_name': current_user.last_name
+    }
+    edit_profile = InstagramUser.objects.get(id=current_user.id)
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            edit_profile.username = data['username']
+            edit_profile.password = data['password']
+            edit_profile.email = data['email']
+            edit_profile.first_name = data['first_name']
+            edit_profile.last_name = data['last_name']
+            edit_profile.save()
+            return redirect(reverse('homepage'))
+        return render(request, 'sign_up.html', {"form": form})
+    form = SignupForm(initial=initial_data)
+    context.update({'form': form})
+    return render(request, 'sign_up.html', {'form': form})
+
 
 class LoginView(View):
     def get(self, request):
@@ -54,8 +81,28 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))
 
-
 def index(request):
-    post = InstagramUser.objects.all()
+    posts = InstagramUser.objects.all()
     return render(request, "index.html", {
-        'heading': 'Profile Page', 'post': post})
+        'heading': "Here's who you could be following:", 'posts': posts })
+
+def user_detail(request, user_id):
+    current_user = request.user
+    posts = InstagramUser.objects.filter(id=user_id)
+    return render(request, "user_detail.html", {
+        'heading': 'Profile', 'posts': posts })
+
+
+def follow(request, user_id):
+    current_user = request.user
+    following = InstagramUser.objects.get(id=user_id)
+    current_user.follow.add(following)
+    is_following = True
+    return HttpResponseRedirect(reverse('homepage'))
+
+def unfollow(request, user_id):
+    current_user = request.user
+    following = InstagramUser.objects.get(id=user_id)
+    current_user.follow.remove(following)
+    is_following = False
+    return HttpResponseRedirect(reverse('homepage'))
