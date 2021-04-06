@@ -1,46 +1,53 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse
-
+from django.shortcuts import render, HttpResponseRedirect, reverse, redirect
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.views.generic import View
 
 from .forms import LoginForm, SignupForm
 from .models import InstagramUser
 
 # Create your views here.
 
-def sign_up_view(request):
-    if request.method == "POST":
+
+class SignUpView(View):
+    def get(self, request):
+        template_name = "sign_up.html"
+        form = SignupForm()
+        return render(request, template_name, {"form": form})
+
+    def post(self, request):
         form = SignupForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
             new_user = InstagramUser.objects.create_user(
-                username=data['username'], 
-                password=data['password'], 
-                first_name=data['first_name'],
-                last_name=data['last_name'],
-                email=data['email']
+                username=data.get('username'),
+                password=data.get('password'),
+                first_name=data.get('first_name'),
+                last_name=data.get('last_name'),
+                email=data.get('email')
             )
-            return HttpResponseRedirect(reverse("login"))
-
-    form = SignupForm()
-    return render(request, "sign_up.html", {"form": form})
+            login(request, new_user)
+            return redirect(reverse('homepage'))
 
 
-def login_view(request):
-    if request.method == "POST":
+
+class LoginView(View):
+    def get(self, request):
+        template_name = "login.html"
+        form = LoginForm()
+        return render(request, template_name, {'form': form})
+
+    def post(self, request):
         form = LoginForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            user = authenticate(
-                request, username=data['username'], password=data['password']
+            new_user = authenticate(
+                request, username=data.get('username'), password=data.get('password')
             )
-            if user:
-                login(request, user)
-                return HttpResponseRedirect(request.GET.get('next', reverse("homepage")))
-
-    form = LoginForm()
-    return render(request, "login.html", {'form': form})
+            if new_user:
+                login(request, new_user)
+                return redirect(request.GET.get('next', '/'))
 
 
 def logout_view(request):
