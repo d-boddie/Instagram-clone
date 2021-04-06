@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from authentication import views
+from comment.views import comment
 
 urlpatterns = [
     path('', views.index, name='homepage'),
@@ -23,4 +24,6 @@ urlpatterns = [
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('admin/', admin.site.urls),
+    path('comment/', comment, name='comments'),
+    
 ]
