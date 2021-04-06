@@ -43,3 +43,9 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))
+
+
+def index(request):
+    post = InstagramUser.objects.all()
+    return render(request, "index.html", {
+        'heading': 'Profile Page', 'post': post})
