@@ -16,7 +16,10 @@ def sign_up_view(request):
             data = form.cleaned_data
             new_user = InstagramUser.objects.create_user(
                 username=data['username'], 
-                password=data['password']
+                password=data['password'], 
+                first_name=data['first_name'],
+                last_name=data['last_name'],
+                email=data['email']
             )
             return HttpResponseRedirect(reverse("login"))
 
