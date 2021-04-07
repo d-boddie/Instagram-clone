@@ -6,10 +6,6 @@ class LoginForm(forms.Form):
     username = forms.CharField(max_length=50, label='')
     password = forms.CharField(widget=forms.PasswordInput, label='')
     
-<<<<<<< HEAD
-=======
-
->>>>>>> a71db017ce98eddf25de83b2575fe9fe0dab7ef3
 class SignupForm(forms.Form):
     username = forms.CharField(max_length=40)
     password = forms.CharField(widget=forms.PasswordInput)
