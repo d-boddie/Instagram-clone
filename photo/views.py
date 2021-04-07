@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect
 from photo.models import Photo
 from photo.forms import PhotoForm
 
@@ -8,8 +8,9 @@ def photo_view(request):
         form = PhotoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            img_obj = form.instance
-        return render(request, 'photo.html', {'form': form, 'img_obj': img_obj})
+            photo_obj = form.instance
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
         form = PhotoForm()
-    return render(request, 'photo.html', {'form': form})        
+        photo = Photo.objects.all()
+    return render(request, 'photo.html', {'form': form, 'photo':photo})        
