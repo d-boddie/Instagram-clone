@@ -11,12 +11,14 @@
 <body>
   <div class="card text-center">
   <div class="card-header">
-    <h1 class="card-title">Instagram</h1>
+    Featured
   </div>
   <div class="card-body">
+    <h5 class="card-title">Instagram</h5>
     <form method="post">
       {% csrf_token %}
-      <h3>{{ form.as_p }}</h3>
+      <h2>Login!</h2>
+      <h3>{{ form }}</h3>
 
       <input type="submit" value="Submit!">
     </form>
@@ -26,3 +28,6 @@
     2 days ago
   </div>
 </div>
+  
+</body>
+</html>
