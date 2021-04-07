@@ -14,3 +14,6 @@ def photo_view(request):
         form = PhotoForm()
         photo = Photo.objects.all()
     return render(request, 'photo.html', {'form': form, 'photo':photo})        
+
+
+# note
