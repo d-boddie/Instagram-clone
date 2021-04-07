@@ -1,3 +1,9 @@
-**/__pycache__
+**migrations/__pycache__
+/api/__pycache__
+/api/migrations/__pycache__
+/authentication/__pycache__
+/authentication/migrations/__pycache__
+/instagramclone/__pycache__
+/instagramclone/migrations/__pycache__
 db.sqlite3
 .DS_Store
