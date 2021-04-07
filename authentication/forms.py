@@ -6,8 +6,6 @@ class LoginForm(forms.Form):
     username = forms.CharField(max_length=50, label="", widget=forms.TextInput(attrs={'placeholder': 'Username'}))
     password = forms.CharField(label="", widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
     
-
-
 class SignupForm(forms.Form):
     username = forms.CharField(max_length=40)
     password = forms.CharField(widget=forms.PasswordInput)
