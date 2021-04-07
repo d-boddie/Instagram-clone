@@ -8,6 +8,7 @@ authors = ["Deidre Boddie <deidre.boddie@gmail.com>"]
 python = "^3.9"
 Django = "^3.1.7"
 ipdb = "^0.13.7"
+Pillow = "^8.2.0"
 
 [tool.poetry.dev-dependencies]
 
