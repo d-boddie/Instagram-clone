@@ -40,14 +40,19 @@ def edit_profile(request, user_id):
         'email': current_user.email,
         'first_name': current_user.first_name,
         'last_name': current_user.last_name
-    }
+        }
     edit_profile = InstagramUser.objects.get(id=current_user.id)
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
+<<<<<<< HEAD
             edit_profile.username = data['username']
             edit_profile.password = data['password']
+=======
+            edit_profile.bio = data['bio']
+            edit_profile.website = data['website']
+>>>>>>> 71277be1c31d53a62d98eda2fae25e38321e2402
             edit_profile.email = data['email']
             edit_profile.first_name = data['first_name']
             edit_profile.last_name = data['last_name']
@@ -56,8 +61,33 @@ def edit_profile(request, user_id):
         return render(request, 'sign_up.html', {"form": form})
     form = SignupForm(initial=initial_data)
     context.update({'form': form})
+<<<<<<< HEAD
     return render(request, 'sign_up.html', {'form': form})
 
+=======
+    return render(request, 'sign_up.html', {"header": "Edit Profile settings", 'form': form})
+
+def edit_account(request, user_id):
+    context = {}
+    current_user = request.user
+    initial_data = {
+        'username': current_user.username,
+        'password': current_user.password,
+    }
+    edit_account = InstagramUser.objects.get(id=current_user.id)
+    if request.method == 'POST':
+        form = EditAccountForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            edit_account.username = data['username']
+            edit_account.password = data['password']
+            edit_account.save()
+            return redirect(reverse('homepage'))
+        return render(request, 'sign_up.html', {"header": "Edit Account settings", "form": form})
+    form = EditAccountForm(initial=initial_data)
+    context.update({'form': form})
+    return render(request, 'sign_up.html', {"header": "Edit Account settings", 'form': form})
+>>>>>>> 71277be1c31d53a62d98eda2fae25e38321e2402
 
 class LoginView(View):
     def get(self, request):
