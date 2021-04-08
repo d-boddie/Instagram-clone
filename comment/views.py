@@ -6,6 +6,8 @@ from .models import Comment
 
 
 def comment(request):
+    comments = Comment.objects.all()
+    print(comments)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -16,5 +18,12 @@ def comment(request):
         return redirect(reverse('homepage'))
 
     form = CommentForm()
-    return render(request, 'comments.html', {"form": form})
-    
+    return render(request, 'comments.html', {
+        "form": form,
+        'comments': comments})
+
+
+def delete(request, id):
+    comment = Comment.objects.get(id=id)
+    comment.delete()
+    return redirect(reverse('comments'))
