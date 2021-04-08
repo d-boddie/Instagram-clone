@@ -18,7 +18,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 from authentication import views
-from comment.views import comment
+from comment.views import comment, delete
 from photo.views import photo_view
 
 
@@ -32,6 +32,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('admin/', admin.site.urls),
     path('comment/', comment, name='comments'),
+    path('delete-comment/<int:id>/', delete, name='delete'),
     path('photo/', photo_view, name='photos'),
     
 ]
