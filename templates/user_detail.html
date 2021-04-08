@@ -14,6 +14,14 @@
         <tr>
             <th>Followers: {{ post.follow.all | length }}</th>
         </tr>
+        {% if post.bio or post.website %}
+        <tr>
+            <th>{{ post.bio }}</th>
+        </tr>
+        <tr>
+            <th><a href="{{post.website}}">{{ post.website }}</a></th>
+        </tr>
+        {% endif %}
     </table>
 {% endfor %}
 <p><button><a href="/logout/">Log out</a></button></p>
