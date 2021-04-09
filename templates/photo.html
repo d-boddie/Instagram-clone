@@ -1,11 +1,14 @@
-<form method='post' enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Upload</button>
-</form>
+{% include "base.html"%}
+{% block content %}
+    <form method='post' enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
 
-{% for photo in photo%}
-{{photo.caption}}
-{{photo.poster.username}}
-<img src="{{ photo.image.url }}" height='250px' width="25%">
+    {% for photo in photo%}
+    {{photo.caption}}
+    {{photo.poster.username}}
+    <img src="{{ photo.image.url }}" height='250px' width="25%">
 {%endfor%}
+{%endblock content%}

@@ -1,5 +1,11 @@
-{{photo.caption}}
-{{photo.poster.username}}
-<img src="{{ photo.image.url }}" height='250px' width="25%">
+{% include "base.html"%}
+{% block content %}
 
-<button><a href='/deletephoto/{{photo.id}}/'>Delete</a></button>
+    {{photo.caption}}
+    {{photo.poster.username}}
+    <img src="{{ photo.image.url }}" height='250px' width="25%">
+
+    <button><a href='/deletephoto/{{photo.id}}/'>Delete</a></button>
+
+{%endfor%}
+{%endblock content%}

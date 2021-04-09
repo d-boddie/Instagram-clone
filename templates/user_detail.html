@@ -1,27 +1,31 @@
-<h1>{{ heading }}</h1>
+{% include "base.html"%}
+{% block content %}
 
-{% for post in posts %}
-    <table>
-        <tr>
-            <th>{{ post.username }}</th>
-        </tr>
-        <tr>
-            <th>{{ post.first_name }} {{ post.last_name }}</th>
-        </tr>
-        <tr>
-            <th>{{ post.email }}</th>
-        </tr>
-        <tr>
-            <th>Followers: {{ post.follow.all | length }}</th>
-        </tr>
-        {% if post.bio or post.website %}
-        <tr>
-            <th>{{ post.bio }}</th>
-        </tr>
-        <tr>
-            <th><a href="{{post.website}}">{{ post.website }}</a></th>
-        </tr>
-        {% endif %}
-    </table>
-{% endfor %}
-<p><button><a href="/logout/">Log out</a></button></p>
+    {% for post in posts %}
+        <table>
+            <tr>
+                <th>{{ post.username }}</th>
+            </tr>
+            <tr>
+                <th>{{ post.first_name }} {{ post.last_name }}</th>
+            </tr>
+            <tr>
+                <th>{{ post.email }}</th>
+            </tr>
+            <tr>
+                <th>Followers: {{ post.follow.all | length }}</th>
+            </tr>
+            {% if post.bio or post.website %}
+            <tr>
+                <th>{{ post.bio }}</th>
+            </tr>
+            <tr>
+                <th><a href="{{post.website}}">{{ post.website }}</a></th>
+            </tr>
+            {% endif %}
+        </table>
+    {% endfor %}
+    <p><button><a href="/logout/">Log out</a></button></p>
+
+{%endfor%}
+{%endblock content%}
