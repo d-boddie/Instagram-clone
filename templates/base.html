@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  word-spacing: 10px;
+  vertical-align: top;
+  align-items: top;
+}
+.active {
+  background-color: #4CAF50;
+  color: white;
+}
+li {
+  display: inline;
+}
+a {
+  text-decoration: none;
+}
+#nav-logo {
+  width: 200px;
+  height: auto;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-top: -6px;
+  padding: -10px;
+  align-self: left;
+
+}
+</style>
+</head>
+<body>
+<nav>
+<img id="nav-logo" src="{% static 'image/photo-logo.jpg' %}">
+<ul>
+ <li>
+ <a href="#"> Home</a>  
+ </li>
+  <li>  
+  <a href="#"> Profile</a>  
+  </li>  
+  <li>  
+  <a href="#"> Upload</a>  
+  </li>  
+  <li>  
+  <a href="#"> Covid19</a>  
+  </li>  
+</ul>
+</nav>
+</body>
+</html>
