@@ -6,5 +6,6 @@
 
 {% for photo in photo%}
 {{photo.caption}}
+{{photo.poster.username}}
 <img src="{{ photo.image.url }}" height='250px' width="25%">
 {%endfor%}

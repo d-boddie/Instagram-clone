@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.urls import path
 from authentication import views
 from comment.views import comment, delete
-from photo.views import photo_view
+from photo.views import photo_view, photo_detail, photo_delete
 
 
 urlpatterns = [
@@ -34,6 +34,8 @@ urlpatterns = [
     path('comment/', comment, name='comments'),
     path('delete-comment/<int:id>/', delete, name='delete'),
     path('photo/', photo_view, name='photos'),
+    path('photo/<int:photo_id>',photo_detail, name='photo detail'),
+    path('deletephoto/<int:id>/', photo_delete, name='photo delete'),
     
 ]
 
