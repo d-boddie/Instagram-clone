@@ -3,8 +3,15 @@ from .models import InstagramUser
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(max_length=50, label='')
-    password = forms.CharField(widget=forms.PasswordInput, label='')
+    username = forms.CharField(
+        max_length=50,
+        label='',
+        widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+        
+    password = forms.CharField(
+        required=True,
+        label='',
+        widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
     
 class SignupForm(forms.Form):
     username = forms.CharField(max_length=40)
