@@ -20,6 +20,7 @@ from django.urls import path
 from authentication import views
 from comment.views import comment, delete, edit_view, likes
 from photo.views import photo_view, photo_detail, photo_delete
+from about.views import about
 
 
 urlpatterns = [
@@ -38,6 +39,8 @@ urlpatterns = [
     path('photo/', photo_view, name='photos'),
     path('photo/<int:photo_id>', photo_detail, name='photo detail'),
     path('deletephoto/<int:id>/', photo_delete, name='photo delete'),
+    path('about/', about, name='about'),
+
     
 ]
 
