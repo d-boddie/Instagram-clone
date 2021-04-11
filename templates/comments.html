@@ -26,8 +26,14 @@
         </form>
         <br>
         {% for c in comments %}
-          <p>{{ c.post }}</p>
+          <p>
+          {{ c.post }}
+          {{ c.likes }}
+          {{c.created_at}}
+          </p>
           <a href="http://localhost:8000/delete-comment/{{c.id}}/" class="btn btn-primary">delete</a>
+          <a href="http://localhost:8000/edit-comment/{{c.id}}/" class="btn btn-primary">edit</a>
+          <a href="http://localhost:8000/likes/{{c.id}}/" class="btn btn-primary">like</a>
 
         {% endfor %}
       </div>
