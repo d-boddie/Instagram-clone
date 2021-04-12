@@ -94,7 +94,7 @@ class LoginView(View):
             )
             if new_user:
                 login(request, new_user)
-                return redirect(request.GET.get('next', '/'))
+                return redirect(request.GET.get('next', '/login'))
 
 def logout_view(request):
     logout(request)
