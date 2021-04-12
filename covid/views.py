@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import requests
+from datetime import date
 
 # Create your views here.
 
@@ -40,10 +41,13 @@ def administered():
 
 def covid(request):
     try:
-        print(cases())
-        print(deaths())
-        print(distributed())
-        print(administered())
-        return render(request, 'covid-19.html')
+        data = {
+            'cases':cases(),
+            'deaths':deaths(),
+            'distributed':distributed(),
+            'administered':administered(),
+            'today': date.today()
+        }
+        return render(request, 'covid-19.html', data)
     except NameError:
         print('NO')
