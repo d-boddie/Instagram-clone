@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 
-from .forms import LoginForm, SignupForm
+from .forms import LoginForm, SignupForm, EditProfileForm, EditAccountForm
 from .models import InstagramUser
 
 # Create your views here.
@@ -43,28 +43,19 @@ def edit_profile(request, user_id):
         }
     edit_profile = InstagramUser.objects.get(id=current_user.id)
     if request.method == 'POST':
-        form = SignupForm(request.POST)
+        form = EditProfileForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-<<<<<<< HEAD
-            edit_profile.username = data['username']
-            edit_profile.password = data['password']
-=======
             edit_profile.bio = data['bio']
             edit_profile.website = data['website']
->>>>>>> 71277be1c31d53a62d98eda2fae25e38321e2402
             edit_profile.email = data['email']
             edit_profile.first_name = data['first_name']
             edit_profile.last_name = data['last_name']
             edit_profile.save()
             return redirect(reverse('homepage'))
         return render(request, 'sign_up.html', {"form": form})
-    form = SignupForm(initial=initial_data)
+    form = EditProfileForm(initial=initial_data)
     context.update({'form': form})
-<<<<<<< HEAD
-    return render(request, 'sign_up.html', {'form': form})
-
-=======
     return render(request, 'sign_up.html', {"header": "Edit Profile settings", 'form': form})
 
 def edit_account(request, user_id):
@@ -87,7 +78,6 @@ def edit_account(request, user_id):
     form = EditAccountForm(initial=initial_data)
     context.update({'form': form})
     return render(request, 'sign_up.html', {"header": "Edit Account settings", 'form': form})
->>>>>>> 71277be1c31d53a62d98eda2fae25e38321e2402
 
 class LoginView(View):
     def get(self, request):
@@ -105,7 +95,6 @@ class LoginView(View):
             if new_user:
                 login(request, new_user)
                 return redirect(request.GET.get('next', '/'))
-
 
 def logout_view(request):
     logout(request)

@@ -1,6 +1,11 @@
 <h1>{{ heading }}</h1>
-<button><a href="/edit/{{user.id}}">Edit your profile</a></button>
+<select name="forma" onchange="location = this.value;">
+    <option></option>
+    <option value="/editprofile/{{user.id}}">Edit profile settings</option>
+    <option value="/editaccount/{{user.id}}">Edit account settings</option>
+</select>
 {% for post in posts %}
+{% if tweet.user in user.follow.all %}
     <table>
         <tr>
             <th><a href="/user/{{post.id}}">{{ post.username }}</a></th>
@@ -14,9 +19,14 @@
         <tr>
             <th>Followers: {{ post.follow.all | length }}</th>
         </tr>
+        <tr>
+            <th>Date created: {{ post.date_joined }}</th>
+        </tr>
     </table>
+{% endif %}
 {% endfor %}
 {% if user.is_authenticated %}
+Logged in as {{ post.first_name }}
 <p><button><a href="/logout/">Log out</a></button></p>
 {% else %}
 <button><a href="/login/">Log in</a></button>
