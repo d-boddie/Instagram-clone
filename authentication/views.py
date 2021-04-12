@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 
-from .forms import LoginForm, SignupForm, EditAccountForm, EditProfileForm
+from .forms import LoginForm, SignupForm, EditProfileForm, EditAccountForm
 from .models import InstagramUser
 
 # Create your views here.
@@ -14,7 +14,7 @@ class SignUpView(View):
     def get(self, request):
         template_name = "sign_up.html"
         form = SignupForm()
-        return render(request, template_name, {"form": form, "header": "Sign Up"})
+        return render(request, template_name, {"form": form})
 
     def post(self, request):
         form = SignupForm(request.POST)
@@ -35,8 +35,9 @@ def edit_profile(request, user_id):
     context = {}
     current_user = request.user
     initial_data = {
-        'bio': current_user.bio,
-        'website': current_user.website,
+        'username': current_user.username,
+        'password': current_user.password,
+        'email': current_user.email,
         'first_name': current_user.first_name,
         'last_name': current_user.last_name
         }
@@ -52,7 +53,7 @@ def edit_profile(request, user_id):
             edit_profile.last_name = data['last_name']
             edit_profile.save()
             return redirect(reverse('homepage'))
-        return render(request, 'sign_up.html', {"form": form, "header": "Edit Profile settings"})
+        return render(request, 'sign_up.html', {"form": form})
     form = EditProfileForm(initial=initial_data)
     context.update({'form': form})
     return render(request, 'sign_up.html', {"header": "Edit Profile settings", 'form': form})
@@ -94,7 +95,6 @@ class LoginView(View):
             if new_user:
                 login(request, new_user)
                 return redirect(request.GET.get('next', '/login'))
-
 
 def logout_view(request):
     logout(request)
