@@ -30,6 +30,8 @@ urlpatterns = [
     path('user/<int:user_id>', views.user_detail, name='detail'),
     path('editprofile/<int:user_id>', views.edit_profile, name='edit profile'),
     path('editaccount/<int:user_id>', views.edit_account, name='edit account'),
+    path('follow/<int:user_id>', views.follow, name="follow"),
+    path('unfollow/<int:user_id>', views.unfollow, name="unfollow"),
     path('logout/', views.logout_view, name='logout'),
     path('admin/', admin.site.urls),
     path('comment/', comment, name='comments'),
