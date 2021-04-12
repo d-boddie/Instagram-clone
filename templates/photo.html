@@ -10,7 +10,9 @@
     {{photo.caption}}
     {{photo.poster.username}}
     {{photo.likes}}
+    <a href="/photo/{{ photo.id}}/">
     <img src="{{ photo.image.url }}" height='250px' width="25%">
-    <button><a href="/photolikes/{{ photo.id }}/"">Like</a></button>
-{%endfor%}
+    </a>
+    <button><a href="/photolikes/{{ photo.id }}/">Like</a></button>
+    {%endfor%}
 {%endblock content%}
