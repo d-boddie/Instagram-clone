@@ -26,4 +26,11 @@ def photo_delete(request, id):
     photo = Photo.objects.get(id=id)
     photo.delete()
     return redirect(reverse('photos'))
+
+
+def photo_like(request, id):
+    photo = Photo.objects.get(id=id)
+    photo.likes += 1
+    photo.save()
+    return redirect(reverse('photos'))
     
