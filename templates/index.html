@@ -1,33 +1,44 @@
-<h1>{{ heading }}</h1>
-<select name="forma" onchange="location = this.value;">
-    <option></option>
-    <option value="/editprofile/{{user.id}}">Edit profile settings</option>
-    <option value="/editaccount/{{user.id}}">Edit account settings</option>
-</select>
-{% for post in posts %}
-{% if tweet.user in user.follow.all %}
-    <table>
-        <tr>
-            <th><a href="/user/{{post.id}}">{{ post.username }}</a></th>
-        </tr>
-        <tr>
-            <th>{{ post.first_name }} {{ post.last_name }}</th>
-        </tr>
-        <tr>
-            <th>{{ post.email }}</th>
-        </tr>
-        <tr>
-            <th>Followers: {{ post.follow.all | length }}</th>
-        </tr>
-        <tr>
-            <th>Date created: {{ post.date_joined }}</th>
-        </tr>
-    </table>
-{% endif %}
-{% endfor %}
-{% if user.is_authenticated %}
-Logged in as {{ post.first_name }}
-<p><button><a href="/logout/">Log out</a></button></p>
-{% else %}
-<button><a href="/login/">Log in</a></button>
-{% endif %}
+{% include "base.html"%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{ heading }}</h1>
+    <select name="forma" onchange="location = this.value;">
+        <option></option>
+        <option value="/editprofile/{{user.id}}">Edit profile settings</option>
+        <option value="/editaccount/{{user.id}}">Edit account settings</option>
+    </select>
+    <div class="data">
+        {% for post in posts %}
+        <table>
+            <tr>
+                <th><a href="/user/{{post.id}}">{{ post.username }}</a></th>
+                </tr>
+                {% if post.firstname or post.last_name or post.email %}
+                <tr>
+                    <th>{{ post.first_name }} {{ post.last_name }}</th>
+                </tr>
+                <tr>
+                    <th>{{ post.email }}</th>
+                </tr>
+                {% endif %}
+                <tr>
+                    <th>Followers: {{ post.follow.all | length }}</th>
+                </tr>
+            </table>
+            {% endfor %}
+        </div>
+    {% if user.is_authenticated %}
+    <p><button><a href="/logout/">Log out</a></button></p>
+    {% else %}
+    <button><a href="/login/">Log in</a></button>
+    {% endif %}
+    {% comment %} {% endfor %} {% endcomment %}
+</body>
+</html>

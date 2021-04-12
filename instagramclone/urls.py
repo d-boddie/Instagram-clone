@@ -18,14 +18,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 from authentication import views
-from comment.views import comment
-from photo.views import photo_view
+from comment.views import comment, delete, edit_view, likes
+from photo.views import photo_view, photo_detail, photo_delete
+from about.views import about
 
 
 urlpatterns = [
-    path('', views.index, name='homepage'),
+    path('', views.LoginView.as_view(), name='homepage'),
+    path('login/', views.index, name='login'),
     path('sign_up/', views.SignUpView.as_view(), name='sign_up'),
-    path('login/', views.LoginView.as_view(), name='login'),
     path('user/<int:user_id>', views.user_detail, name='detail'),
     path('editprofile/<int:user_id>', views.edit_profile, name='edit profile'),
     path('editaccount/<int:user_id>', views.edit_account, name='edit account'),
@@ -34,7 +35,14 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('admin/', admin.site.urls),
     path('comment/', comment, name='comments'),
+    path('delete-comment/<int:id>/', delete, name='delete'),
+    path('edit-comment/<int:id>/', edit_view, name='editcomment'),
+    path('likes/<int:id>/', likes, name='likes'),
     path('photo/', photo_view, name='photos'),
+    path('photo/<int:photo_id>', photo_detail, name='photo detail'),
+    path('deletephoto/<int:id>/', photo_delete, name='photo delete'),
+    path('about/', about, name='about'),
+
     
 ]
 

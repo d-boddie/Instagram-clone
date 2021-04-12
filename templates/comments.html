@@ -1,33 +1,43 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <div class="card text-center">
-  <div class="card-header">
-    Featured
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Instagram</h5>
-    <form method="post">
-      {% csrf_token %}
-      <h2>Login!</h2>
-      <h3>{{ form }}</h3>
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+      crossorigin="anonymous"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="card text-center">
+      <div class="card-header">Featured</div>
+      <div class="card-body">
+        <h5 class="card-title">Instagram</h5>
+        <form method="post">
+          {% csrf_token %}
+          <h2>Login!</h2>
+          <h3>{{ form.as_p}}</h3>
 
-      <input type="submit" value="Submit!">
-    </form>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-  <div class="card-footer text-muted">
-    2 days ago
-  </div>
-</div>
-  
-</body>
+          <input type="submit" value="Submit!" />
+        </form>
+        <br>
+        {% for c in comments %}
+          <p>
+          {{ c.post }}
+          {{ c.likes }}
+          {{c.created_at}}
+          </p>
+          <a href="http://localhost:8000/delete-comment/{{c.id}}/" class="btn btn-primary">delete</a>
+          <a href="http://localhost:8000/edit-comment/{{c.id}}/" class="btn btn-primary">edit</a>
+          <a href="http://localhost:8000/likes/{{c.id}}/" class="btn btn-primary">like</a>
+
+        {% endfor %}
+      </div>
+      <div class="card-footer text-muted">2 days ago</div>
+    </div>
+  </body>
 </html>

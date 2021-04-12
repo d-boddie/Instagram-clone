@@ -1,0 +1,47 @@
+.logo {
+  border-radius: 100%;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+.signup {
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  font-size: large;
+}
+
+.footer {
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+  font-size: larger;
+  margin-top: 10px;
+}
+
+.footer a {
+  margin-left: 15px;
+  margin-right: 15px;
+  text-decoration: none;
+  color: black;
+  font-size: large;
+}
+
+.signup-text {
+  font-size: large !important;
+}
+
+.btn {
+  font-weight: 700 !important;
+  font-size: larger !important;
+}
+
+.apple {
+  width: 150px;
+}
+
+.google {
+  width: 200px;
+}
