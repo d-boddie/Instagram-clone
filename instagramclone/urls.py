@@ -21,11 +21,12 @@ from authentication import views
 from comment.views import comment, delete, edit_view, likes
 from photo.views import photo_view, photo_detail, photo_delete, photo_like
 from about.views import about
+from covid.views import covid
 
 
 urlpatterns = [
-    path('', views.LoginView.as_view(), name='homepage'),
-    path('login/', views.index, name='login'),
+    path('', views.index, name='homepage'),
+    path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('sign_up/', views.SignUpView.as_view(), name='sign_up'),
     path('user/<int:user_id>', views.user_detail, name='detail'),
@@ -42,7 +43,7 @@ urlpatterns = [
     path('deletephoto/<int:id>/', photo_delete, name='photo delete'),
     path('photolikes/<int:id>/', photo_like, name='photo like'),
     path('about/', about, name='about'),
-    path('admin/', admin.site.urls),
+    path('covid/', covid, name='covid'),
 
     
 ]

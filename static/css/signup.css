@@ -1,0 +1,65 @@
+.logo {
+    border-radius: 100%;
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+  }
+  
+  .signup {
+    text-decoration: none !important;
+    font-weight: 700 !important;
+    font-size: large;
+  }
+  
+  .footer {
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+  }
+  
+  .footer a {
+    margin-left: 15px;
+    margin-right: 15px;
+    text-decoration: none;
+    color: black;
+    font-size: large;
+  }
+  
+  .signup-text {
+    font-size: large !important;
+  }
+  
+  .btn {
+    font-weight: 700 !important;
+    font-size: larger !important;
+  }
+  
+  .apple {
+    width: 150px;
+  }
+  
+  .google {
+    width: 200px;
+  }
+
+  #connect{
+      color: rgb(126, 126, 126);
+      margin-top: 20px
+  }
+
+  #terms{
+      color: grey;
+      margin-top: 20px
+  }
+
+  #checkbox{
+    width: 20px;
+    height: 20px;
+  }
+  
+  @media (max-width: 600px) {
+    .position-absolute{
+      margin-top: 225px !important;
+    }
+  }

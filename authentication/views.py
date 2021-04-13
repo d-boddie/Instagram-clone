@@ -30,7 +30,7 @@ class SignUpView(View):
             login(request, new_user)
             return redirect(reverse('homepage'))
 
-
+@login_required
 def edit_profile(request, user_id):
     context = {}
     current_user = request.user
@@ -58,6 +58,7 @@ def edit_profile(request, user_id):
     context.update({'form': form})
     return render(request, 'sign_up.html', {"header": "Edit Profile settings", 'form': form})
 
+@login_required
 def edit_account(request, user_id):
     context = {}
     current_user = request.user
@@ -78,6 +79,7 @@ def edit_account(request, user_id):
     form = EditAccountForm(initial=initial_data)
     context.update({'form': form})
     return render(request, 'sign_up.html', {"header": "Edit Account settings", 'form': form})
+
 
 class LoginView(View):
     def get(self, request):
@@ -100,11 +102,14 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))
 
+@login_required
 def index(request):
     posts = InstagramUser.objects.all()
     return render(request, "index.html", {
         'heading': "Here's who you could be following:", 'posts': posts })
 
+
+@login_required
 def user_detail(request, user_id):
     current_user = request.user
     posts = InstagramUser.objects.filter(id=user_id)
@@ -112,6 +117,7 @@ def user_detail(request, user_id):
         'heading': 'Profile', 'posts': posts })
 
 
+@login_required
 def follow(request, user_id):
     current_user = request.user
     following = InstagramUser.objects.get(id=user_id)
@@ -119,6 +125,8 @@ def follow(request, user_id):
     is_following = True
     return HttpResponseRedirect(reverse('homepage'))
 
+
+@login_required
 def unfollow(request, user_id):
     current_user = request.user
     following = InstagramUser.objects.get(id=user_id)

@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'authentication',
     'api',
     'comment',
-    'photo'
+    'photo',
+    'covid'
 ]
 
 MIDDLEWARE = [
