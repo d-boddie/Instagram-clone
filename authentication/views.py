@@ -6,6 +6,7 @@ from django.views.generic import View
 
 from .forms import LoginForm, SignupForm, EditProfileForm, EditAccountForm
 from .models import InstagramUser
+from photo.models import Photo
 
 # Create your views here.
 
@@ -96,7 +97,7 @@ class LoginView(View):
             )
             if new_user:
                 login(request, new_user)
-                return redirect(request.GET.get('next', '/login'))
+                return redirect(request.GET.get('next', 'homepage'))
 
 def logout_view(request):
     logout(request)
@@ -105,6 +106,7 @@ def logout_view(request):
 @login_required
 def index(request):
     posts = InstagramUser.objects.all()
+    print(posts)
     return render(request, "index.html", {
         'heading': "Here's who you could be following:", 'posts': posts })
 
