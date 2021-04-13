@@ -31,7 +31,7 @@
   border-radius: 100%;
 }
 
-.footer {
+.about-footer {
   text-align: center;
   bottom: 0;
   width: 100%;
@@ -39,7 +39,7 @@
   margin-top: 25px;
 }
 
-.footer a {
+.about-footer a {
   margin-left: 15px;
   margin-right: 15px;
   text-decoration: none;
