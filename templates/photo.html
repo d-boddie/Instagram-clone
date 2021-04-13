@@ -43,8 +43,10 @@
         <div class="flex">
                 {{photo.poster.username}}
                 <br/>
+                {% if photo.image %}
                 <img class="photo" src="{{ photo.image.url }}" height='250px' width="250px">
                 <br/>
+                {% endif %}
                 <button><a href="/photolikes/{{ photo.id }}/">♡  Like</a></button>
                 {{photo.likes}}<br/>
                 {{photo.caption}}
