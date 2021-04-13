@@ -44,11 +44,16 @@
                 {{photo.poster.username}}
                 <br/>
                 {% if photo.image %}
+                <a href="/photo/{{ photo.id}}/">
                 <img class="photo" src="{{ photo.image.url }}" height='250px' width="250px">
+                </a>
                 <br/>
                 {% endif %}
-                <button><a href="/photolikes/{{ photo.id }}/">♡  Like</a></button>
-                {{photo.likes}}<br/>
+                <button><a href="/photolikes/{{ photo.id }}/">♡{{photo.button}}</a></button>
+                {% for person in photo.likes.all%}
+                <p>{{person.username}}</p>
+                {%endfor%}
+                {{photo.total_likes}}<br/>
                 {{photo.caption}}
             </div>
             {%endfor%}
