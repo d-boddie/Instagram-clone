@@ -1,0 +1,49 @@
+.image-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 25%;
+  width: 50%;
+}
+
+.card {
+  width: 615px !important;
+  margin-bottom: 100px !important;
+  background-color: white !important;
+}
+
+.card-header{
+    background-color: white !important;
+}
+
+.photo {
+  width: 614px;
+  height: 614px;
+}
+
+.thumbnail{
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+}
+
+.like{
+    margin-left: 20px;
+    width: 614px;
+    height: 40px;
+    font-size: 40px;
+}
+
+.card-text{
+    font-size: 20px !important;
+}
+
+.user{
+    font-weight: 900;
+    text-decoration: none;
+    color: black;
+}
+
+.input-group{
+    margin: none !important;
+    padding: none !important;
+}

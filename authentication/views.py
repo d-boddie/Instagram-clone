@@ -106,9 +106,12 @@ def logout_view(request):
 @login_required
 def index(request):
     posts = InstagramUser.objects.all()
-    print(posts)
-    return render(request, "index.html", {
-        'heading': "Here's who you could be following:", 'posts': posts })
+    photos = Photo.objects.all()
+    data = {
+        'users': posts,
+        'photos':photos
+    }
+    return render(request, "index.html", data)
 
 
 @login_required
