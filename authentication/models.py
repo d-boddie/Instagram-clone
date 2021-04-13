@@ -14,5 +14,5 @@ class InstagramUser(AbstractUser):
     def count_followers(self):
         return self.follow.count()
 
-    # def __str__(self):
-    #     return self.username
+    def __str__(self):
+        return self.username
