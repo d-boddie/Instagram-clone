@@ -1,17 +1,5 @@
 {% include "base.html"%}
 
-<<<<<<< HEAD
-    {% for photo in photo%}
-    {{photo.caption}}
-    {{photo.poster.username}}
-    {{photo.likes}}
-    <a href="/photo/{{ photo.id}}/">
-    <img src="{{ photo.image.url }}" height='250px' width="25%">
-    </a>
-    <button><a href="/photolikes/{{ photo.id }}/">Like</a></button>
-    {%endfor%}
-{%endblock content%}
-=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +11,7 @@
   
 .contain, .flex {
      box-sizing: border-box;
+     
  }
 .contain {
     
@@ -31,6 +20,7 @@
 }
 .flex {
     float: left;
+    margin: 30px;
     width: 25%;
     padding: 5px;
 }
@@ -64,4 +54,3 @@
     {%endblock content%}
 </body>
 </html>
->>>>>>> main
