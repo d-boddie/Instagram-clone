@@ -1,16 +1,54 @@
 {% include "base.html"%}
-{% block content %}
-    <form method='post' enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Upload</button>
-    </form>
 
-    {% for photo in photo%}
-    {{photo.caption}}
-    {{photo.poster.username}}
-    {{photo.likes}}
-    <img src="{{ photo.image.url }}" height='250px' width="25%">
-    <button><a href="/photolikes/{{ photo.id }}/"">Like</a></button>
-{%endfor%}
-{%endblock content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+  
+.contain, .flex {
+     box-sizing: border-box;
+ }
+.contain {
+    
+    margin: auto;
+    text-align: center;
+}
+.flex {
+    float: left;
+    width: 25%;
+    padding: 5px;
+}
+    
+</style>    
+</head>
+<body>
+    
+    {% block content %}
+        <form method='post' enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form>
+        <hr/>
+    
+        <div class="contain">
+        {% for photo in photo%}
+        
+        <div class="flex">
+                {{photo.poster.username}}
+                <br/>
+                <img class="photo" src="{{ photo.image.url }}" height='250px' width="250px">
+                <br/>
+                <button><a href="/photolikes/{{ photo.id }}/">♡  Like</a></button>
+                {{photo.likes}}<br/>
+                {{photo.caption}}
+            </div>
+            {%endfor%}
+        </div>
+    {%endblock content%}
+</body>
+</html>
