@@ -20,6 +20,7 @@
             <form method="post">
               {% csrf_token %}
               <h3>{{ form.as_p }}</h3>
+              <input id="checkbox" type="checkbox" onclick="show()">Show Password
 
               
               <div class="d-grid gap-2">
@@ -57,5 +58,15 @@
     </footer>
 
   </div>
-  
+  <script>
+      const show = () => {
+        let x = document.getElementById("id_password");
+        if (x.type === "password") {
+          x.type = "text";
+        } 
+        else {
+          x.type = "password";
+        }
+    }
+  </script>
 </body> 
