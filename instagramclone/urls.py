@@ -26,14 +26,13 @@ from about.views import about
 urlpatterns = [
     path('', views.LoginView.as_view(), name='homepage'),
     path('login/', views.index, name='login'),
+    path('logout/', views.logout_view, name='logout'),
     path('sign_up/', views.SignUpView.as_view(), name='sign_up'),
     path('user/<int:user_id>', views.user_detail, name='detail'),
     path('editprofile/<int:user_id>', views.edit_profile, name='edit profile'),
     path('editaccount/<int:user_id>', views.edit_account, name='edit account'),
     path('follow/<int:user_id>', views.follow, name="follow"),
     path('unfollow/<int:user_id>', views.unfollow, name="unfollow"),
-    path('logout/', views.logout_view, name='logout'),
-    path('admin/', admin.site.urls),
     path('comment/', comment, name='comments'),
     path('delete-comment/<int:id>/', delete, name='delete'),
     path('edit-comment/<int:id>/', edit_view, name='editcomment'),
@@ -43,6 +42,7 @@ urlpatterns = [
     path('deletephoto/<int:id>/', photo_delete, name='photo delete'),
     path('photolikes/<int:id>/', photo_like, name='photo like'),
     path('about/', about, name='about'),
+    path('admin/', admin.site.urls),
 
     
 ]
