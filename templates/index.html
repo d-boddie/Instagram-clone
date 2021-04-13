@@ -1,3 +1,4 @@
+{% load static %}
 {% include "base.html"%}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,39 +7,78 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
-    <h1>{{ heading }}</h1>
-    <select name="forma" onchange="location = this.value;">
-        <option></option>
-        <option value="/editprofile/{{user.id}}">Edit profile settings</option>
-        <option value="/editaccount/{{user.id}}">Edit account settings</option>
-    </select>
-    <div class="data">
-        {% for post in posts %}
-        <table>
-            <tr>
-                <th><a href="/user/{{post.id}}">{{ post.username }}</a></th>
-                </tr>
-                {% if post.firstname or post.last_name or post.email %}
-                <tr>
-                    <th>{{ post.first_name }} {{ post.last_name }}</th>
-                </tr>
-                <tr>
-                    <th>{{ post.email }}</th>
-                </tr>
-                {% endif %}
-                <tr>
-                    <th>Followers: {{ post.follow.all | length }}</th>
-                </tr>
-            </table>
+    <div class="main">
+        <div class="image-container">
+            {% for photo in photos  %}
+                <div class="card">
+                    <div class="card-header">
+                        <img class="thumbnail" src="{{ photo.image.url }}"/>
+                    </div>
+                    {% if photo.image %}
+                        <a href="/photo/{{ photo.id}}/">
+                        <img class="photo" src="{{ photo.image.url }}">
+                        </a>
+                    {% endif %}
+                    <div class="like">♡</div>
+                    <div class="card-body">
+                        <h5 class="card-title">0 likes</h5>
+                        <p class="card-text">
+                            <a class="user" href="#">{{request.user}}</a>
+                            {{photo.caption}}
+                        </p>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Add a comment..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Post</button>
+</div>
+                    </div>
+                </div>
             {% endfor %}
         </div>
-    {% if user.is_authenticated %}
-    <p><button><a href="/logout/">Log out</a></button></p>
-    {% else %}
-    <button><a href="/login/">Log in</a></button>
-    {% endif %}
-    {% comment %} {% endfor %} {% endcomment %}
+    </div>
+
+
+
+
+
+
+
+
+
+
+    {% comment %} <h1>{{ heading }}</h1>
+        <select name="forma" onchange="location = this.value;">
+            <option></option>
+            <option value="/editprofile/{{user.id}}">Edit profile settings</option>
+            <option value="/editaccount/{{user.id}}">Edit account settings</option>
+        </select>
+        <div class="data"> {% endcomment %}
+            {% comment %} {% for post in posts %}
+            <table>
+                <tr>
+                    <th><a href="/user/{{post.id}}">{{ post.username }}</a></th>
+                    </tr>
+                    {% if post.firstname or post.last_name or post.email %}
+                    <tr>
+                        <th>{{ post.first_name }} {{ post.last_name }}</th>
+                    </tr>
+                    <tr>
+                        <th>{{ post.email }}</th>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <th>Followers: {{ post.follow.all | length }}</th>
+                    </tr>
+                </table>
+                {% endfor %}
+            </div>
+        {% if user.is_authenticated %}
+        <p><button><a href="/logout/">Log out</a></button></p>
+        {% else %}
+        <button><a href="/login/">Log in</a></button>
+        {% endif %} {% endcomment %}
+        {% comment %} {% endfor %} {% endcomment %}
 </body>
 </html>

@@ -43,6 +43,11 @@
   width: 200px;
 }
 
+#checkbox{
+  width: 20px;
+  height: 20px;
+}
+
 @media (max-width: 600px) {
   .position-absolute{
     margin-top: 125px !important;
