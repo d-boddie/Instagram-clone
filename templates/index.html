@@ -16,6 +16,7 @@
                 <div class="card">
                     <div class="card-header">
                         <img class="thumbnail" src="{{ photo.image.url }}"/>
+                        <a class="user-1" href="#">{{request.user}}</a>
                     </div>
                     {% if photo.image %}
                         <a href="/photo/{{ photo.id}}/">
@@ -29,10 +30,18 @@
                             <a class="user" href="#">{{photo.poster.username}}</a>
                             {{photo.caption}}
                         </p>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Add a comment..." aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <a href="/comment/"><button class="btn btn-outline-primary" type="submit" id="button-addon2">Post</button></a>
+                        <div class="comments">
+                            {% for c in comments %}
+                                {% if c.photo_id == photo.id %}
+                                    <p>{{ c.post }}</p>
+                                {% endif %}
+                            {% endfor %}
                         </div>
+                        <form action="/comment/{{photo.id}}/" method="POST">
+                            {% csrf_token %}
+                            {{ form }}
+                            <input id='submit' type="submit" value="Post">
+                        </form>
                     </div>
                 </div>
             {% endfor %}
@@ -79,6 +88,6 @@
         {% else %}
         <button><a href="/login/">Log in</a></button>
         {% endif %} {% endcomment %}
-        {% comment %} {% endfor %} {% endcomment %}
+    {% comment %} {% endfor %} {% endcomment %}
 </body>
 </html>

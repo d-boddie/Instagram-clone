@@ -1,4 +1,7 @@
 from django import forms
 
 class CommentForm(forms.Form):
-    post = forms.CharField(widget=forms.Textarea, max_length=280)
+    post = forms.CharField(
+        max_length=50,
+        label='',
+        widget=forms.TextInput(attrs={'placeholder': 'Add a comment...'}))

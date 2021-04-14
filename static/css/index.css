@@ -6,7 +6,7 @@
 }
 
 .card {
-  width: 615px !important;
+  width: 700px !important;
   margin-bottom: 100px !important;
   background-color: white !important;
 }
@@ -16,19 +16,21 @@
 }
 
 .photo {
-  width: 614px;
-  height: 614px;
+  width: 699px;
+  height: 900px;
 }
 
 .thumbnail{
-    width: 32px;
-    height: 32px;
+    width: 50px;
+    height: 50px;
     border-radius: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .like{
     margin-left: 20px;
-    width: 614px;
+    width: 700px;
     height: 40px;
     font-size: 40px;
 }
@@ -38,12 +40,38 @@
 }
 
 .user{
-    font-weight: 900;
+    font-weight: 700;
     text-decoration: none;
     color: black;
+    font-size: 30px;
 }
 
-.input-group{
-    margin: none !important;
-    padding: none !important;
+.user-1{
+    font-weight: 700;
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
+    margin-left: 50px;
+}
+
+#id_post{
+    width: 568px;
+    height: 40px;
+    font-size: 20px;
+}
+
+#submit{
+    height: 40px;
+    border-radius: 10%;
+    background-color: red;
+    color: rgb(255, 255, 255);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+
+}
+
+#submit:hover{
+    background-color: white;
+    color:red
 }
