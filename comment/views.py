@@ -15,7 +15,8 @@ def comment(request, id):
             data = form.cleaned_data
             comment = Comment.objects.create(
                 post=data['post'],
-                photo=photo
+                photo=photo,
+                creator=request.user
             )
         return redirect(reverse('homepage'))
 

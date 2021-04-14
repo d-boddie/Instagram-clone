@@ -1,7 +1,7 @@
 .image-container {
   display: flex;
   flex-direction: column;
-  margin-left: 25%;
+  margin-left: 15%;
   width: 50%;
 }
 
@@ -11,8 +11,8 @@
   background-color: white !important;
 }
 
-.card-header{
-    background-color: white !important;
+.card-header {
+  background-color: white !important;
 }
 
 .photo {
@@ -20,58 +20,106 @@
   height: 900px;
 }
 
-.thumbnail{
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
-    margin-top: 5px;
-    margin-bottom: 5px;
+.thumbnail {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-.like{
-    margin-left: 20px;
-    width: 700px;
-    height: 40px;
-    font-size: 40px;
+.like {
+  margin-left: 20px;
+  width: 700px;
+  height: 40px;
+  font-size: 40px;
 }
 
-.card-text{
-    font-size: 20px !important;
+.card-text {
+  font-size: 20px !important;
 }
 
-.user{
-    font-weight: 700;
-    text-decoration: none;
-    color: black;
-    font-size: 30px;
+.user {
+  font-weight: 700;
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
 }
 
-.user-1{
-    font-weight: 700;
-    text-decoration: none;
-    color: black;
-    font-size: 30px;
-    margin-left: 50px;
+.user-1 {
+  font-weight: 700;
+  text-decoration: none;
+  color: black;
+  font-size: 25px;
+  margin-left: 50px;
 }
 
-#id_post{
-    width: 568px;
-    height: 40px;
-    font-size: 20px;
+#id_post {
+  width: 568px;
+  height: 40px;
+  font-size: 20px;
 }
 
-#submit{
-    height: 40px;
-    border-radius: 10%;
-    background-color: red;
-    color: rgb(255, 255, 255);
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-
+#submit {
+  height: 40px;
+  border-radius: 10%;
+  background-color: red;
+  color: rgb(255, 255, 255);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
 }
 
-#submit:hover{
-    background-color: white;
-    color:red
+#submit:hover {
+  background-color: white;
+  color: red;
+}
+
+.friends {
+  width: 350px;
+  height: 200px;
+  background-color: rgb(245, 245, 245);
+  overflow-y: auto;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 15%;
+  margin-bottom: 50px;
+}
+
+.bar {
+  text-align: center;
+}
+
+.pictures {
+  margin: 20px;
+  padding: 16px;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+}
+
+.main {
+  display: flex;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .suggest {
+  margin-top: 50px;
+  width: 350px;
+  height: 200px;
+  background-color: rgb(245, 245, 245);
+  overflow-y: auto;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 80%;
+} */
+
+#comments {
+  text-decoration: none;
+  color: grey;
+  margin-top: 5px;
 }
