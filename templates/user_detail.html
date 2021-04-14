@@ -1,4 +1,15 @@
+{% load static %}
 {% include "base.html"%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
 {% block content %}
 
     {% for post in posts %}
@@ -26,6 +37,37 @@
         </table>
     {% endfor %}
     
-    <p><button><a href="/logout/">Log out</a></button></p>
+     <div class="contain">
+        {% for photo in photo %}
+        
+        <div class="flex">
+            <div class="card" style="width: 18rem;">
+                {% if photo.image %}
+                    <a href="/photo/{{ photo.id}}/">
+                    <img class="photo" src="{{ photo.image.url }}" height='250px' width="250px">
+                    </a>
+                    <br/>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{photo.poster.username}}</h5>
+                    <p class="card-text">{{photo.caption}}</p>
+                    <a href="/photolikes/{{ photo.id }}/" class="btn btn-primary"><i class="bi bi-hand-thumbs-up-fill">{{photo.button}}</i></a>
+                </div>
+                {% for person in photo.likes.all%}
+                    <p>{{person.username}}</p>
+                {%endfor%}
+                {{photo.total_likes}}
+            </div>
+            </div>
+        {%endfor%}
+
+
+
+
+
+    {% comment %} <p><button><a href="/logout/">Log out</a></button></p> {% endcomment %}
 
 {%endblock content%}
+
+</body>
+</html>
