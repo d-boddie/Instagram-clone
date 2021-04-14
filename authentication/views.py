@@ -124,8 +124,9 @@ def index(request):
 def user_detail(request, user_id):
     current_user = request.user
     posts = InstagramUser.objects.filter(id=user_id)
+    photo = Photo.objects.all().filter(poster=request.user)
     return render(request, "user_detail.html", {
-        'heading': 'Profile', 'posts': posts })
+        'heading': 'Profile', 'posts': posts, 'photo':photo })
 
 
 @login_required

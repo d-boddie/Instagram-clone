@@ -10,7 +10,8 @@ def photo_view(request):
             post = form.save(commit=False)
             post.poster = request.user
             post.save()
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            return redirect(reverse('homepage'))
     else:
         form = PhotoForm()
         photo = Photo.objects.all().filter(poster=request.user)
@@ -40,5 +41,5 @@ def photo_like(request, id):
         photo.likes.add(request.user)
         photo.button = "Dislike"
         photo.save()
-    return redirect(reverse('photos'))
+    return redirect(reverse('homepage'))
 

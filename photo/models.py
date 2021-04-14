@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from authentication.models import InstagramUser
+from comment.models import Comment
 
 
 # Create your models here.
@@ -13,9 +14,6 @@ class Photo(models.Model):
     button = models.CharField(max_length=50, default="Like")
     poster = models.ForeignKey(
         InstagramUser, related_name="poster", on_delete=models.CASCADE, default=True)
-    
-
-
 
     def __str__(self):
         return self.caption
