@@ -11,8 +11,8 @@
   background-color: white !important;
 }
 
-.card-header{
-    background-color: white !important;
+.card-header {
+  background-color: white !important;
 }
 
 .photo {
@@ -20,58 +20,78 @@
   height: 900px;
 }
 
-.thumbnail{
-    width: 50px;
-    height: 50px;
+.thumbnail {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.like {
+  margin-left: 20px;
+  width: 700px;
+  height: 40px;
+  font-size: 40px;
+}
+
+.card-text {
+  font-size: 20px !important;
+}
+
+.user {
+  font-weight: 700;
+  text-decoration: none;
+  color: black;
+  font-size: 30px;
+}
+
+.user-1 {
+  font-weight: 700;
+  text-decoration: none;
+  color: black;
+  font-size: 30px;
+  margin-left: 50px;
+}
+
+#id_post {
+  width: 568px;
+  height: 40px;
+  font-size: 20px;
+}
+
+#submit {
+  height: 40px;
+  border-radius: 10%;
+  background-color: red;
+  color: rgb(255, 255, 255);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+#submit:hover {
+  background-color: white;
+  color: red;
+}
+
+.friends {
+  width: 700px;
+  height: 118px;
+  background-color: grey;
+  margin-bottom: 50px;
+  margin-left: 25%;
+  overflow-y: auto;
+}
+
+.bar{
+    text-align: center;
+}
+
+.pictures{
+    margin: 20px;
+    padding: 16px ;
     border-radius: 100%;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.like{
-    margin-left: 20px;
-    width: 700px;
-    height: 40px;
-    font-size: 40px;
-}
-
-.card-text{
-    font-size: 20px !important;
-}
-
-.user{
-    font-weight: 700;
-    text-decoration: none;
-    color: black;
-    font-size: 30px;
-}
-
-.user-1{
-    font-weight: 700;
-    text-decoration: none;
-    color: black;
-    font-size: 30px;
-    margin-left: 50px;
-}
-
-#id_post{
-    width: 568px;
-    height: 40px;
-    font-size: 20px;
-}
-
-#submit{
-    height: 40px;
-    border-radius: 10%;
-    background-color: red;
-    color: rgb(255, 255, 255);
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-
-}
-
-#submit:hover{
-    background-color: white;
-    color:red
+    width: 100px;
+    height: 100px;
 }
