@@ -7,11 +7,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/index.css' %}"> -->
+
+    <style>
+  
+        .contain, .flex {
+             box-sizing: border-box;
+             
+         }
+        .contain {
+            
+            margin: auto;
+            text-align: center;
+        }
+        .flex {
+            float: left;
+            margin: 30px;
+            width: 25%;
+            padding: 5px;
+        }
+           
+        .profile {
+            margin: 20px;
+        }
+    </style>   
+
 </head>
 <body>
 {% block content %}
 
+<div class="profile">
+    <select name="forma" onchange="location = this.value;">
+        <option></option>
+        <option value="/editprofile/{{user.id}}">Edit profile settings</option>
+        <option value="/editaccount/{{user.id}}">Edit account settings</option>
+    </select>
+    <div class="data">
+        <br>
+
+    <h1>{{ heading }}</h1>
     {% for post in posts %}
         <table>
             <tr>
@@ -36,7 +70,7 @@
             {% endif %}
         </table>
     {% endfor %}
-    
+</div>    
      <div class="contain">
         {% for photo in photo %}
         
@@ -51,12 +85,12 @@
                 <div class="card-body">
                     <h5 class="card-title">{{photo.poster.username}}</h5>
                     <p class="card-text">{{photo.caption}}</p>
-                    <a href="/photolikes/{{ photo.id }}/" class="btn btn-primary"><i class="bi bi-hand-thumbs-up-fill">{{photo.button}}</i></a>
+                    <!-- <a href="/photolikes/{{ photo.id }}/" class="btn btn-primary"><i class="bi bi-hand-thumbs-up-fill">{{photo.button}}</i></a> -->
                 </div>
+                {{photo.total_likes}} Likes
                 {% for person in photo.likes.all%}
-                    <p>{{person.username}}</p>
+                    <p><strong>Liked by </strong>{{person.username}}</p>
                 {%endfor%}
-                {{photo.total_likes}}
             </div>
         </div>
         {%endfor%}
@@ -71,3 +105,4 @@
 
 </body>
 </html>
+
