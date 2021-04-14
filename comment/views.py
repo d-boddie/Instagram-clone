@@ -1,19 +1,21 @@
 from django.shortcuts import render, redirect, reverse
 from .forms import CommentForm
 from .models import Comment
+from photo.models import Photo
 
 # Create your views here.
 
 
-def comment(request):
-    comments = Comment.objects.all()
-    print(comments)
+def comment(request, id):
+    photo = Photo.objects.get(id=id)
+    comments = Comment.objects.all().first()
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            Comment.objects.create(
-                post=data['post']
+            comment = Comment.objects.create(
+                post=data['post'],
+                photo=photo
             )
         return redirect(reverse('homepage'))
 

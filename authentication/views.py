@@ -7,6 +7,8 @@ from django.views.generic import View
 from .forms import LoginForm, SignupForm, EditProfileForm, EditAccountForm
 from .models import InstagramUser
 from photo.models import Photo
+from comment.forms import CommentForm
+from comment.models import Comment
 
 # Create your views here.
 
@@ -107,9 +109,13 @@ def logout_view(request):
 def index(request):
     posts = InstagramUser.objects.all()
     photos = Photo.objects.all()
+    comments = Comment.objects.all()
+    form = CommentForm()
     data = {
         'users': posts,
-        'photos':photos
+        'photos': photos,
+        'comments': comments,
+        'form': form
     }
     return render(request, "index.html", data)
 

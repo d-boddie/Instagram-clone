@@ -13,6 +13,9 @@ class Photo(models.Model):
     button = models.CharField(max_length=50, default="Like")
     poster = models.ForeignKey(
         InstagramUser, related_name="poster", on_delete=models.CASCADE, default=True)
+    
+
+
 
     def __str__(self):
         return self.caption
