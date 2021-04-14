@@ -37,31 +37,6 @@
             <button type="submit">Upload</button>
         </form>
         <hr/>
-    
-        <div class="contain">
-        {% for photo in photo %}
-        
-        <div class="flex">
-            <div class="card" style="width: 18rem;">
-                {% if photo.image %}
-                    <a href="/photo/{{ photo.id}}/">
-                    <img class="photo" src="{{ photo.image.url }}" height='250px' width="250px">
-                    </a>
-                    <br/>
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{photo.poster.username}}</h5>
-                    <p class="card-text">{{photo.caption}}</p>
-                    <a href="/photolikes/{{ photo.id }}/" class="btn btn-primary"><i class="bi bi-hand-thumbs-up-fill">{{photo.button}}</i></a>
-                </div>
-                {% for person in photo.likes.all%}
-                    <p>{{person.username}}</p>
-                {%endfor%}
-                {{photo.total_likes}}
-            </div>
-            </div>
-            {%endfor%}
-        </div>
     {%endblock content%}
 </body>
 </html>

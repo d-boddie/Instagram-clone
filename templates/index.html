@@ -22,17 +22,17 @@
                         <img class="photo" src="{{ photo.image.url }}">
                         </a>
                     {% endif %}
-                    <div class="like">♡</div>
                     <div class="card-body">
-                        <h5 class="card-title">0 likes</h5>
+                        <h5 class="card-title">{{photo.total_likes}} Likes</h5>
+                    <a href="/photolikes/{{ photo.id }}/" class="btn btn-primary">♡<i class="bi bi-hand-thumbs-up-fill">{{photo.button}}</i></a>
                         <p class="card-text">
-                            <a class="user" href="#">{{request.user}}</a>
+                            <a class="user" href="#">{{photo.poster.username}}</a>
                             {{photo.caption}}
                         </p>
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Add a comment..." aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-primary" type="button" id="button-addon2">Post</button>
-</div>
+                        <a href="/comment/"><button class="btn btn-outline-primary" type="submit" id="button-addon2">Post</button></a>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
