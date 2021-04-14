@@ -56,10 +56,10 @@ def edit_profile(request, user_id):
             edit_profile.last_name = data['last_name']
             edit_profile.save()
             return redirect(reverse('homepage'))
-        return render(request, 'sign_up.html', {"form": form})
+        return render(request, 'edit.html', {"form": form})
     form = EditProfileForm(initial=initial_data)
     context.update({'form': form})
-    return render(request, 'sign_up.html', {"header": "Edit Profile settings", 'form': form})
+    return render(request, 'edit.html', {"header": "Edit Profile settings", 'form': form})
 
 @login_required
 def edit_account(request, user_id):
@@ -78,10 +78,10 @@ def edit_account(request, user_id):
             edit_account.password = data['password']
             edit_account.save()
             return redirect(reverse('homepage'))
-        return render(request, 'sign_up.html', {"header": "Edit Account settings", "form": form})
+        return render(request, 'edit.html', {"header": "Edit Account settings", "form": form})
     form = EditAccountForm(initial=initial_data)
     context.update({'form': form})
-    return render(request, 'sign_up.html', {"header": "Edit Account settings", 'form': form})
+    return render(request, 'edit.html', {"header": "Edit Account settings", 'form': form})
 
 
 class LoginView(View):
@@ -126,7 +126,7 @@ def user_detail(request, user_id):
     posts = InstagramUser.objects.filter(id=user_id)
     photo = Photo.objects.all().filter(poster=request.user)
     return render(request, "user_detail.html", {
-        'heading': 'Profile', 'posts': posts, 'photo':photo })
+        'heading': 'Profile Page', 'posts': posts, 'photo':photo })
 
 
 @login_required
