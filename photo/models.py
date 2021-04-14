@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from authentication.models import InstagramUser
-from comment.models import Comment
+
 
 
 # Create your models here.

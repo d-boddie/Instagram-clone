@@ -30,7 +30,6 @@
                             <a class="user" href="#">{{photo.poster.username}}</a>
                             {{photo.caption}}
                         </p>
-<<<<<<< HEAD
                         <div class="comments">
                             {% for c in comments %}
                                 {% if c.photo_id == photo.id %}
@@ -43,12 +42,6 @@
                             {{ form }}
                             <input id='submit' type="submit" value="Post">
                         </form>
-=======
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Add a comment..." aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <a href="/comment/"><button class="btn btn-outline-primary" type="submit" id="button-addon2">Post</button></a>
-                        </div>
->>>>>>> 7cce0b06550dcd8fc8e32776f6bb444e074632f2
                     </div>
                 </div>
             {% endfor %}
