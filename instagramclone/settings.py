@@ -47,6 +47,10 @@ INSTALLED_APPS = [
     'comment',
     'photo',
     'covid',
+    'about',
+    'dogs',
+    'home',
+    'user'
 ]
 
 MIDDLEWARE = [

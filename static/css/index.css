@@ -1,7 +1,7 @@
 .image-container {
   display: flex;
   flex-direction: column;
-  margin-left: 25%;
+  margin-left: 15%;
   width: 50%;
 }
 
@@ -43,14 +43,14 @@
   font-weight: 700;
   text-decoration: none;
   color: black;
-  font-size: 30px;
+  font-size: 20px;
 }
 
 .user-1 {
   font-weight: 700;
   text-decoration: none;
   color: black;
-  font-size: 30px;
+  font-size: 25px;
   margin-left: 50px;
 }
 
@@ -76,22 +76,50 @@
 }
 
 .friends {
-  width: 700px;
-  height: 118px;
-  background-color: grey;
-  margin-bottom: 50px;
-  margin-left: 25%;
+  width: 350px;
+  height: 200px;
+  background-color: rgb(245, 245, 245);
   overflow-y: auto;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 15%;
+  margin-bottom: 50px;
 }
 
-.bar{
-    text-align: center;
+.bar {
+  text-align: center;
 }
 
-.pictures{
-    margin: 20px;
-    padding: 16px ;
-    border-radius: 100%;
-    width: 100px;
-    height: 100px;
+.pictures {
+  margin: 20px;
+  padding: 16px;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+}
+
+.main {
+  display: flex;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .suggest {
+  margin-top: 50px;
+  width: 350px;
+  height: 200px;
+  background-color: rgb(245, 245, 245);
+  overflow-y: auto;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 80%;
+} */
+
+#comments {
+  text-decoration: none;
+  color: grey;
+  margin-top: 5px;
 }

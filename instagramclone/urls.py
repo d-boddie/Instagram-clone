@@ -22,6 +22,7 @@ from comment.views import comment, delete, edit_view, likes
 from photo.views import photo_view, photo_detail, photo_delete, photo_like
 from about.views import about
 from covid.views import covid
+from dogs.views import dogs
 
 
 urlpatterns = [
@@ -45,6 +46,7 @@ urlpatterns = [
     path('photolikes/<int:id>/', photo_like, name='photo like'),
     path('about/', about, name='about'),
     path('covid/', covid, name='covid'),
+    path('dogs/', dogs, name='dogs'),
 
     
 ]
