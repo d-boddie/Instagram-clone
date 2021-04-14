@@ -95,20 +95,19 @@ class LoginView(View):
             if new_user:
                 login(request, new_user)
                 return redirect(request.GET.get('next', '/'))
+        return HttpResponseRedirect(reverse('index'))
 
 
-@login_required(login_url="/login/")
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))
 
-@login_required(login_url="/login/")
 def index(request):
     posts = InstagramUser.objects.all()
     return render(request, "index.html", {
         'heading': "Here's who you could be following:", 'posts': posts })
 
-@login_required(login_url="/login/")
 def user_detail(request, user_id):
     current_user = request.user
     posts = InstagramUser.objects.filter(id=user_id)

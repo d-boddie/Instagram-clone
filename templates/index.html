@@ -16,6 +16,7 @@
     </select>
     <div class="data">
         {% for post in posts %}
+        {% if tweet.user in user.follow.all %}
         <table>
             <tr>
                 <th><a href="/user/{{post.id}}">{{ post.username }}</a></th>
@@ -32,6 +33,7 @@
                     <th>Followers: {{ post.follow.all | length }}</th>
                 </tr>
             </table>
+            {% endif %}
             {% endfor %}
         </div>
     {% if user.is_authenticated %}

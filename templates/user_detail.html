@@ -26,5 +26,10 @@
         </table>
     {% endfor %}
     <p><button><a href="/logout/">Log out</a></button></p>
-
-{%endblock content%}
+    {% if user.follow.is_following != True %}
+    <a href="/follow/{{user.id}}">Follow?</a>
+    {% endif %}
+    {% if user.follow.is_following != False %}
+    <a href="/unfollow/{{user.id}}">Unfollow.</a>
+    {% endif %}
+    {%endblock content%}

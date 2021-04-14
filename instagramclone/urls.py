@@ -25,7 +25,7 @@ from about.views import about
 
 urlpatterns = [
     path('', views.LoginView.as_view(), name='homepage'),
-    path('login/', views.index, name='login'),
+    path('index/', views.index, name='index'),
     path('sign_up/', views.SignUpView.as_view(), name='sign_up'),
     path('user/<int:user_id>', views.user_detail, name='detail'),
     path('editprofile/<int:user_id>', views.edit_profile, name='edit profile'),
