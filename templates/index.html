@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Photo-ish — Home</title>
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
@@ -14,7 +14,7 @@
     <div class="main">
         <div class="image-container">
             {% for photo in photos  %}
-            {% if photo.poster in authentication.InstagramUser.follow.all %}
+            {% if photo.poster in authentication.InstagramUser.friends.all %}
                 <div class="card">
                     <div class="card-header">
                         {% if photo.image.url %}
@@ -58,6 +58,7 @@
                         </form>
                     </div>
                 </div>
+            {% endif %}
             {% endfor %}
         </div>
         {% comment %} <div class="flex"> {% endcomment %}
