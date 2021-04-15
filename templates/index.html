@@ -16,9 +16,15 @@
             {% for photo in photos  %}
                 <div class="card">
                     <div class="card-header">
-                        {% if photo.image.url %}
-                            <img class="thumbnail" src="{{ photo.image.url }}"/>
-                        {% endif %}
+                        {% for p in users  %}
+                            {% if p.id == photo.poster_id %}
+                                {% if p.avatar %}
+                                    <img class="thumbnail" src="{{ p.avatar.url }}"/>
+                                {% else %}
+                                    <img class="thumbnail" src="{% static 'image/default.jpg' %}"/>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
                         <a class="user-1" href="user/{{ photo.poster_id }}">{{photo.poster.username}}</a>
                     </div>
                     {% if photo.image %}
@@ -59,70 +65,25 @@
                 </div>
             {% endfor %}
         </div>
-        {% comment %} <div class="flex"> {% endcomment %}
+    
             <div class="friends">
                 <div class="bar">
-                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
-                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
-                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
-                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
-                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
-                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
+                    {% for u in users %}
+                        <div class="follows">
+                            {% if u.avatar %}
+                                <img class="pictures" src="{{u.avatar.url}}" alt="profile_pic">
+                                <a class="user" href="#">{{u.username}}</a>
+                                <a class="follow-link" href="#">Follow</a>
+                            {% else %}
+                                <img class="pictures" src="{% static 'image/default.jpg' %}"/>
+                                <a class="user" href="#">{{u.username}}</a>
+                                <a class="follow-link"href="#">Follow</a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
-            {% comment %} <div class="suggest">
-                <div class="bar">
-                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
-                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
-                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
-                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
-                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
-                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
-                </div>
-            </div> {% endcomment %}
-        {% comment %} </div> {% endcomment %}
-    </div>
+        </div>
 
-
-
-
-
-
-
-
-
-
-    {% comment %} <h1>{{ heading }}</h1>
-        <select name="forma" onchange="location = this.value;">
-            <option></option>
-            <option value="/editprofile/{{user.id}}">Edit profile settings</option>
-            <option value="/editaccount/{{user.id}}">Edit account settings</option>
-        </select>
-        <div class="data"> {% endcomment %}
-            {% comment %} {% for post in posts %}
-            <table>
-                <tr>
-                    <th><a href="/user/{{post.id}}">{{ post.username }}</a></th>
-                    </tr>
-                    {% if post.firstname or post.last_name or post.email %}
-                    <tr>
-                        <th>{{ post.first_name }} {{ post.last_name }}</th>
-                    </tr>
-                    <tr>
-                        <th>{{ post.email }}</th>
-                    </tr>
-                    {% endif %}
-                    <tr>
-                        <th>Followers: {{ post.follow.all | length }}</th>
-                    </tr>
-                </table>
-                {% endfor %}
-            </div>
-        {% if user.is_authenticated %}
-        <p><button><a href="/logout/">Log out</a></button></p>
-        {% else %}
-        <button><a href="/login/">Log in</a></button>
-        {% endif %} {% endcomment %}
-    {% comment %} {% endfor %} {% endcomment %}
-</body>
+    </body>
 </html>
