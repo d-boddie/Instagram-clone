@@ -30,6 +30,12 @@
         .profile {
             margin: 20px;
         }
+
+        .username {
+            color: red;
+            font-size: 25px;
+        }
+
     </style>   
 
 </head>
@@ -49,7 +55,18 @@
     {% for post in posts %}
         <table>
             <tr>
-                <th>{{ post.username }}</th>
+                {% if request.user.id != user_id %}
+                    {% if friends in request.user.follower.all %}
+                        <!-- <th><a href="/follow/{{ post.id }}" class="btn btn-primary">follow me</a></th> -->
+                        <th><a href="/unfollow/{{ post.id }}" class="btn btn-primary">unfollow me</a></th>
+                    {% else %}
+                        <!-- <th><a href="/unfollow/{{ post.id }}" class="btn btn-primary">unfollow me</a></th> -->
+                        <th><a href="/follow/{{ post.id }}" class="btn btn-primary">follow me</a></th>
+                    {% endif%}
+                {% endif %}
+            </tr>
+            <tr>
+                <th class="username">{{ post.username }} </th>
             </tr>
             <tr>
                 <th>{{ post.first_name }} {{ post.last_name }}</th>
