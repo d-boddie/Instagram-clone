@@ -33,10 +33,24 @@ class SignUpView(View):
             login(request, new_user)
             return redirect(reverse('homepage'))
 
+
 @login_required
 def edit_profile(request, user_id):
-    context = {}
     current_user = request.user
+    edit_profile = InstagramUser.objects.get(id=current_user.id)
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, request.FILES, instance=edit_profile)
+        if form.is_valid():
+            edit_profile = form.save(commit=False)
+            data = form.cleaned_data
+            edit_profile.bio = data['bio']
+            edit_profile.website = data['website']
+            edit_profile.first_name = data['first_name']
+            edit_profile.last_name = data['last_name']
+            edit_profile.avatar = data['avatar']
+            edit_profile.save()
+            return redirect(reverse('homepage'))
+
     initial_data = {
         'username': current_user.username,
         'password': current_user.password,
@@ -46,21 +60,9 @@ def edit_profile(request, user_id):
         'first_name': current_user.first_name,
         'last_name': current_user.last_name
         }
-    edit_profile = InstagramUser.objects.get(id=current_user.id)
-    if request.method == 'POST':
-        form = EditProfileForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            edit_profile.bio = data['bio']
-            edit_profile.website = data['website']
-            edit_profile.first_name = data['first_name']
-            edit_profile.last_name = data['last_name']
-            edit_profile.save()
-            return redirect(reverse('homepage'))
-        return render(request, 'edit.html', {"form": form})
     form = EditProfileForm(initial=initial_data)
-    context.update({'form': form})
     return render(request, 'edit.html', {"header": "Edit Profile settings", 'form': form})
+
 
 @login_required
 def edit_account(request, user_id):
@@ -110,7 +112,6 @@ def logout_view(request):
 
 @login_required
 def index(request):
-    print(request.user.avatar)
     posts = InstagramUser.objects.all()
     photos = Photo.objects.all()
     photo = Photo.objects.all().first()
@@ -120,7 +121,7 @@ def index(request):
         'users': posts,
         'photos': photos,
         'comments': comments,
-        'form': form
+        'form': form,
     }
     return render(request, "index.html", data)
 

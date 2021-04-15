@@ -10,7 +10,7 @@ def dogs(request):
         images = dogs_image.get('message')
         return render(request, 'dogs.html', {'images':images})
     except ConnectionError:
-        return render(request, '404.html')
+        return render(request, '500.html')
 
 
 
