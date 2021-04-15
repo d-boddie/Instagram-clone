@@ -46,7 +46,11 @@ INSTALLED_APPS = [
     'api',
     'comment',
     'photo',
-    'covid'
+    'covid',
+    'about',
+    'dogs',
+    'home',
+    'user'
 ]
 
 MIDDLEWARE = [

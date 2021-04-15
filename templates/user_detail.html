@@ -7,15 +7,66 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/index.css' %}"> -->
+
+    <style>
+  
+        .contain, .flex {
+             box-sizing: border-box;
+             
+         }
+        .contain {
+            
+            margin: auto;
+            text-align: center;
+        }
+        .flex {
+            float: left;
+            margin: 30px;
+            width: 25%;
+            padding: 5px;
+        }
+           
+        .profile {
+            margin: 20px;
+        }
+
+        .username {
+            color: red;
+            font-size: 25px;
+        }
+
+    </style>   
+
 </head>
 <body>
 {% block content %}
 
+<div class="profile">
+    <select name="forma" onchange="location = this.value;">
+        <option></option>
+        <option value="/editprofile/{{user.id}}">Edit profile settings</option>
+        <option value="/editaccount/{{user.id}}">Edit account settings</option>
+    </select>
+    <div class="data">
+        <br>
+
+    <h1>{{ heading }}</h1>
     {% for post in posts %}
         <table>
             <tr>
-                <th>{{ post.username }}</th>
+                {% if request.user.id != user_id %}
+                    {% if friends in request.user.follower.all %}
+                        <!-- <th><a href="/follow/{{ post.id }}" class="btn btn-primary">follow me</a></th> -->
+                        <th><a href="/unfollow/{{ post.id }}" class="btn btn-primary">unfollow me</a></th>
+                    {% else %}
+                        <!-- <th><a href="/unfollow/{{ post.id }}" class="btn btn-primary">unfollow me</a></th> -->
+                        <th><a href="/follow/{{ post.id }}" class="btn btn-primary">follow me</a></th>
+                    {% endif%}
+                {% endif %}
+            </tr>
+            <tr>
+                <th class="username">{{ post.username }} </th>
             </tr>
             <tr>
                 <th>{{ post.first_name }} {{ post.last_name }}</th>
@@ -36,14 +87,7 @@
             {% endif %}
         </table>
     {% endfor %}
-    <p><button><a href="/logout/">Log out</a></button></p>
-    {% if user.follow.is_following != True %}
-    <a href="/follow/{{user.id}}">Follow?</a>
-    {% endif %}
-    {% if user.follow.is_following != False %}
-    <a href="/unfollow/{{user.id}}">Unfollow.</a>
-    {% endif %}
-    
+</div>    
      <div class="contain">
         {% for photo in photo %}
         <div class="flex">
@@ -57,18 +101,24 @@
                 <div class="card-body">
                     <h5 class="card-title">{{photo.poster.username}}</h5>
                     <p class="card-text">{{photo.caption}}</p>
-                    <a href="/photolikes/{{ photo.id }}/" class="btn btn-primary"><i class="bi bi-hand-thumbs-up-fill">{{photo.button}}</i></a>
+                    <!-- <a href="/photolikes/{{ photo.id }}/" class="btn btn-primary"><i class="bi bi-hand-thumbs-up-fill">{{photo.button}}</i></a> -->
                 </div>
+                {{photo.total_likes}} Likes
                 {% for person in photo.likes.all%}
-                    <p>{{person.username}}</p>
+                    <p><strong>Liked by </strong>{{person.username}}</p>
                 {%endfor%}
-                {{photo.total_likes}}
             </div>
-            </div>
-        {% endfor %}
+        </div>
+        {%endfor%}
+
+
+
+
+
     {% comment %} <p><button><a href="/logout/">Log out</a></button></p> {% endcomment %}
 
 {% endblock content %}
 
 </body>
 </html>
+

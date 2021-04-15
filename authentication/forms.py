@@ -43,9 +43,11 @@ class EditProfileForm(forms.ModelForm):
         model = InstagramUser
         fields = [
             "bio",
+            "email",
             "website",
             "first_name",
-            "last_name"
+            "last_name",
+            'avatar'
         ]
 
 class EditAccountForm(forms.Form):

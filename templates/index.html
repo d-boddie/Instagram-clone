@@ -10,13 +10,17 @@
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
+    
     <div class="main">
         <div class="image-container">
             {% for photo in photos  %}
             {% if photo.poster in authentication.InstagramUser.follow.all %}
                 <div class="card">
                     <div class="card-header">
-                        <img class="thumbnail" src="{{ photo.image.url }}"/>
+                        {% if photo.image.url %}
+                            <img class="thumbnail" src="{{ photo.image.url }}"/>
+                        {% endif %}
+                        <a class="user-1" href="user/{{ photo.poster_id }}">{{photo.poster.username}}</a>
                     </div>
                     {% if photo.image %}
                         <a href="/photo/{{ photo.id}}/">
@@ -25,19 +29,59 @@
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{photo.total_likes}} Likes</h5>
-                    <a href="/photolikes/{{ photo.id }}/" class="btn btn-primary">♡<i class="bi bi-hand-thumbs-up-fill">{{photo.button}}</i></a>
+                        <a href="/photolikes/{{ photo.id }}/" class="btn btn-primary">
+                            ♡
+                            <i class="bi bi-hand-thumbs-up-fill"></i>
+                        </a>
                         <p class="card-text">
-                            <a class="user" href="#">{{photo.poster.username}}</a>
+                            <br>
+                            <a class="user" href="user/{{photo.poster_id}}">{{photo.poster.username}}</a>
                             {{photo.caption}}
+                            <br>
+                            <a id="comments" href="#">View all comments</a>
                         </p>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Add a comment..." aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <a href="/comment/"><button class="btn btn-outline-primary" type="submit" id="button-addon2">Post</button></a>
+                        
+                        <div class="comments">
+                            {% for c in comments %}
+                                {% if c.photo_id == photo.id %}
+                                    <p class="card-text">
+                                        <a href="user/{{c.creator_id}}" class="user">{{c.creator}}<a>
+                                        {{ c.post }}
+                                    </p>
+                                {% endif %}
+                            {% endfor %}
                         </div>
+                        <form action="/comment/{{photo.id}}/" method="POST">
+                            {% csrf_token %}
+                            {{ form }}
+                            <input id='submit' type="submit" value="Post">
+                        </form>
                     </div>
                 </div>
             {% endfor %}
         </div>
+        {% comment %} <div class="flex"> {% endcomment %}
+            <div class="friends">
+                <div class="bar">
+                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
+                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
+                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
+                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
+                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
+                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
+                </div>
+            </div>
+            {% comment %} <div class="suggest">
+                <div class="bar">
+                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
+                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
+                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
+                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
+                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
+                    <img class="pictures" src="{% static 'image/510da98abbe03f7ff9a7ce6eb0f362e7.jpeg' %}"/>
+                </div>
+            </div> {% endcomment %}
+        {% comment %} </div> {% endcomment %}
     </div>
 
 
@@ -80,6 +124,6 @@
         {% else %}
         <button><a href="/login/">Log in</a></button>
         {% endif %} {% endcomment %}
-        {% comment %} {% endfor %} {% endcomment %}
+    {% comment %} {% endfor %} {% endcomment %}
 </body>
 </html>

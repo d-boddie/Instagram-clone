@@ -22,6 +22,8 @@ from comment.views import comment, delete, edit_view, likes
 from photo.views import photo_view, photo_detail, photo_delete, photo_like
 from about.views import about
 from covid.views import covid
+from dogs.views import dogs
+from user.views import avatar
 
 
 urlpatterns = [
@@ -35,7 +37,7 @@ urlpatterns = [
     path('editaccount/<int:user_id>', views.edit_account, name='edit account'),
     path('follow/<int:user_id>', views.follow, name="follow"),
     path('unfollow/<int:user_id>', views.unfollow, name="unfollow"),
-    path('comment/', comment, name='comments'),
+    path('comment/<int:id>/', comment, name='comments'),
     path('delete-comment/<int:id>/', delete, name='delete'),
     path('edit-comment/<int:id>/', edit_view, name='editcomment'),
     path('likes/<int:id>/', likes, name='likes'),
@@ -45,6 +47,8 @@ urlpatterns = [
     path('photolikes/<int:id>/', photo_like, name='photo like'),
     path('about/', about, name='about'),
     path('covid/', covid, name='covid'),
+    path('dogs/', dogs, name='dogs'),
+    path('avatar/<int:id>/', avatar, name='avatar')
 
     
 ]
