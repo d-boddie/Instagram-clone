@@ -19,11 +19,7 @@
                         {% if photo.image.url %}
                             <img class="thumbnail" src="{{ photo.image.url }}"/>
                         {% endif %}
-<<<<<<< HEAD
-                        <a class="user-1" href="user/{{photo.poster_id}}">{{photo.poster.username}}</a>
-=======
                         <a class="user-1" href="user/{{ photo.poster_id }}">{{photo.poster.username}}</a>
->>>>>>> 54bfee2514b53c91f01698951479b369b86cdfdc
                     </div>
                     {% if photo.image %}
                         <a href="/photo/{{ photo.id}}/">

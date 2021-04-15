@@ -127,16 +127,9 @@ def index(request):
 
 @login_required
 def user_detail(request, user_id):
-<<<<<<< HEAD
-
-    posts = InstagramUser.objects.filter(id=user_id)
-    print(dir(posts.first()))
-    photo = Photo.objects.all().filter(poster_id=user_id)
-=======
     posts = InstagramUser.objects.all().filter(id=user_id)
     photo = Photo.objects.all().filter(poster_id=user_id)
     # followers = 
->>>>>>> 54bfee2514b53c91f01698951479b369b86cdfdc
     return render(request, "user_detail.html", {
         'heading': 'Profile Page', 
         'photo':photo, 
@@ -147,21 +140,11 @@ def user_detail(request, user_id):
 
 @login_required
 def follow(request, user_id):
-<<<<<<< HEAD
-    current_user = InstagramUser.objects.get(id=request.user.id)
-    following = InstagramUser.objects.get(id=user_id)
-    current_user.follow.add(following)
-    current_user.save()
-    print(dir(current_user.follow))
-    # is_following = True
-    return HttpResponseRedirect(reverse('homepage'))
-=======
     current_user = InstagramUser.objects.get(username=request.user)
     following = InstagramUser.objects.get(id=user_id)
     current_user.friend.add(following)
     current_user.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
->>>>>>> 54bfee2514b53c91f01698951479b369b86cdfdc
 
 
 @login_required
