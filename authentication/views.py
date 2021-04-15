@@ -53,7 +53,6 @@ def edit_profile(request, user_id):
             data = form.cleaned_data
             edit_profile.bio = data['bio']
             edit_profile.website = data['website']
-            edit_profile.email = data['email']
             edit_profile.first_name = data['first_name']
             edit_profile.last_name = data['last_name']
             edit_profile.save()
@@ -111,8 +110,10 @@ def logout_view(request):
 
 @login_required
 def index(request):
+    print(request.user.avatar)
     posts = InstagramUser.objects.all()
     photos = Photo.objects.all()
+    photo = Photo.objects.all().first()
     comments = Comment.objects.all()
     form = CommentForm()
     data = {

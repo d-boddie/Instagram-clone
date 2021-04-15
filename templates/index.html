@@ -34,7 +34,7 @@
                         </a>
                         <p class="card-text">
                             <br>
-                            <a class="user" href="#">{{photo.poster.username}}</a>
+                            <a class="user" href="user/{{photo.poster_id}}">{{photo.poster.username}}</a>
                             {{photo.caption}}
                             <br>
                             <a id="comments" href="#">View all comments</a>
@@ -44,7 +44,7 @@
                             {% for c in comments %}
                                 {% if c.photo_id == photo.id %}
                                     <p class="card-text">
-                                        <a href="#" class="user">{{c.creator}}<a>
+                                        <a href="user/{{c.creator_id}}" class="user">{{c.creator}}<a>
                                         {{ c.post }}
                                     </p>
                                 {% endif %}
