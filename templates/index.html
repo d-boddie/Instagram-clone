@@ -13,8 +13,8 @@
     
     <div class="main">
         <div class="image-container">
-            {% for photo in photos  %}
-            {% if photo.poster in authentication.InstagramUser.friends.all %}
+            {% for photo in photos %}
+            {% if photo.poster in request.user.friends.all %}
                 <div class="card">
                     <div class="card-header">
                         {% for p in users  %}
@@ -73,13 +73,13 @@
                     {% for u in users %}
                         <div class="follows">
                             {% if u.avatar %}
-                                <img class="pictures" src="{{u.avatar.url}}" alt="profile_pic">
-                                <a class="user" href="#">{{u.username}}</a>
-                                <a class="follow-link" href="#">Follow</a>
+                                <a href="user/{{u.id}}"><img class="pictures" src="{{u.avatar.url}}" alt="profile_pic"></a>
+                                <a class="user" href="user/{{u.id}}">{{u.username}}</a>
+                                <a class="follow-link" href="follow/{{u.id}}">Follow</a>
                             {% else %}
-                                <img class="pictures" src="{% static 'image/default.jpg' %}"/>
-                                <a class="user" href="#">{{u.username}}</a>
-                                <a class="follow-link"href="#">Follow</a>
+                                <a href="user/{{u.id}}"><img class="pictures" src="{% static 'image/default.jpg' %}"/></a>
+                                <a class="user" href="user/{{u.id}}">{{u.username}}</a>
+                                <a class="follow-link" href="follow/{{u.id}}">Follow</a>
                             {% endif %}
                         </div>
                     {% endfor %}
