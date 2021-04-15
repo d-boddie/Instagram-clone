@@ -56,7 +56,7 @@
         <table>
             <tr>
                 {% if request.user.id != user_id %}
-                    {% if friends in request.user.follower.all %}
+                    {% if friends in request.user.friend.all %}
                         <!-- <th><a href="/follow/{{ post.id }}" class="btn btn-primary">follow me</a></th> -->
                         <th><a href="/unfollow/{{ post.id }}" class="btn btn-primary">unfollow me</a></th>
                     {% else %}
@@ -91,7 +91,6 @@
 </div>    
      <div class="contain">
         {% for photo in photo %}
-        
         <div class="flex">
             <div class="card" style="width: 18rem;">
                 {% if photo.image %}
@@ -119,7 +118,7 @@
 
     {% comment %} <p><button><a href="/logout/">Log out</a></button></p> {% endcomment %}
 
-{%endblock content%}
+{% endblock content %}
 
 </body>
 </html>
