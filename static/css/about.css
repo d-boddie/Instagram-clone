@@ -17,20 +17,21 @@
 .flex- {
   padding: 20px;
   flex: 25%;
-  margin: 10px 10px;
+  margin: 20px 20px;
   color: rgb(255, 131, 220);
   font-family: 'Imbue', serif;
   font-size: 30px;
   background-color: rgb(193, 10, 10);
-  border-radius: 5%;
+  border-radius: 10%;
 }
 
 .images {
   width: 250px;
+  height: auto;
   border-radius: 100%;
 }
 
-.footer {
+.about-footer {
   text-align: center;
   bottom: 0;
   width: 100%;
@@ -38,7 +39,7 @@
   margin-top: 25px;
 }
 
-.footer a {
+.about-footer a {
   margin-left: 15px;
   margin-right: 15px;
   text-decoration: none;

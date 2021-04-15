@@ -6,6 +6,7 @@ from django.views.generic import View
 
 from .forms import LoginForm, SignupForm, EditProfileForm, EditAccountForm
 from .models import InstagramUser
+from photo.models import Photo
 
 # Create your views here.
 
@@ -30,7 +31,7 @@ class SignUpView(View):
             login(request, new_user)
             return redirect(reverse('homepage'))
 
-
+@login_required
 def edit_profile(request, user_id):
     context = {}
     current_user = request.user
@@ -58,6 +59,7 @@ def edit_profile(request, user_id):
     context.update({'form': form})
     return render(request, 'sign_up.html', {"header": "Edit Profile settings", 'form': form})
 
+@login_required
 def edit_account(request, user_id):
     context = {}
     current_user = request.user
@@ -79,6 +81,7 @@ def edit_account(request, user_id):
     context.update({'form': form})
     return render(request, 'sign_up.html', {"header": "Edit Account settings", 'form': form})
 
+
 class LoginView(View):
     def get(self, request):
         template_name = "login.html"
@@ -94,27 +97,33 @@ class LoginView(View):
             )
             if new_user:
                 login(request, new_user)
-                return redirect(request.GET.get('next', '/'))
-        return HttpResponseRedirect(reverse('index'))
-
-
+                return redirect(request.GET.get('next', 'homepage'))
 
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))
 
+@login_required
 def index(request):
     posts = InstagramUser.objects.all()
-    return render(request, "index.html", {
-        'heading': "Here's who you could be following:", 'posts': posts })
+    photos = Photo.objects.all()
+    data = {
+        'users': posts,
+        'photos':photos
+    }
+    return render(request, "index.html", data)
 
+
+@login_required
 def user_detail(request, user_id):
     current_user = request.user
     posts = InstagramUser.objects.filter(id=user_id)
+    photo = Photo.objects.all().filter(poster=request.user)
     return render(request, "user_detail.html", {
-        'heading': 'Profile', 'posts': posts })
+        'heading': 'Profile', 'posts': posts, 'photo':photo })
 
 
+@login_required
 def follow(request, user_id):
     current_user = request.user
     following = InstagramUser.objects.get(id=user_id)
@@ -122,6 +131,8 @@ def follow(request, user_id):
     is_following = True
     return HttpResponseRedirect(reverse('homepage'))
 
+
+@login_required
 def unfollow(request, user_id):
     current_user = request.user
     following = InstagramUser.objects.get(id=user_id)

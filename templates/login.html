@@ -20,8 +20,9 @@
             <form method="post">
               {% csrf_token %}
               <h3>{{ form.as_p }}</h3>
+              <input id="checkbox" type="checkbox" onclick="show()">Show Password
 
-              {% comment %} <input type="submit" value="Login"> {% endcomment %}
+              
               <div class="d-grid gap-2">
                   <button class="btn btn-primary" type="submit">Log In</button>
               </div>
@@ -43,17 +44,29 @@
         </div>
       </div>
       <br>
-      <footer class="footer">
-    <br>
-    <a href="#">About</a>
-    <a href="#">Kenzie</a>
-    <a href="#">Covid-19</a>
-    <a href="#">Dogs</a>
-    <a href="#">Cats</a>
-    <br>
-    &copy; <em id="date">2021</em> Team Cotton from Kenzie
-  </footer>
-    </div>
     
-  
+    <footer class="footer">
+      <br>
+      <a href="/about">About</a>
+      <a href="https://www.kenzie.academy/" target="_blank">Kenzie</a>
+      <a href="/covid">Covid-19</a>
+      <a href="#">Games</a>
+      <a href="#">Cats</a>
+      <br>
+      <br>
+      Copyrights &copy; <em id="date">2021</em> All Rights Reserved Team Cotton from Kenzie
+    </footer>
+
+  </div>
+  <script>
+      const show = () => {
+        let x = document.getElementById("id_password");
+        if (x.type === "password") {
+          x.type = "text";
+        } 
+        else {
+          x.type = "password";
+        }
+    }
+  </script>
 </body> 

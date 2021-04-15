@@ -19,29 +19,32 @@ from django.conf.urls.static import static
 from django.urls import path
 from authentication import views
 from comment.views import comment, delete, edit_view, likes
-from photo.views import photo_view, photo_detail, photo_delete
+from photo.views import photo_view, photo_detail, photo_delete, photo_like
 from about.views import about
+from covid.views import covid
 
 
 urlpatterns = [
-    path('', views.LoginView.as_view(), name='homepage'),
-    path('index/', views.index, name='index'),
+    path('', views.index, name='homepage'),
+    path('admin/', admin.site.urls),
+    path('login/', views.LoginView.as_view(), name='login'),
+    path('logout/', views.logout_view, name='logout'),
     path('sign_up/', views.SignUpView.as_view(), name='sign_up'),
     path('user/<int:user_id>', views.user_detail, name='detail'),
     path('editprofile/<int:user_id>', views.edit_profile, name='edit profile'),
     path('editaccount/<int:user_id>', views.edit_account, name='edit account'),
     path('follow/<int:user_id>', views.follow, name="follow"),
     path('unfollow/<int:user_id>', views.unfollow, name="unfollow"),
-    path('logout/', views.logout_view, name='logout'),
-    path('admin/', admin.site.urls),
     path('comment/', comment, name='comments'),
     path('delete-comment/<int:id>/', delete, name='delete'),
     path('edit-comment/<int:id>/', edit_view, name='editcomment'),
     path('likes/<int:id>/', likes, name='likes'),
     path('photo/', photo_view, name='photos'),
-    path('photo/<int:photo_id>', photo_detail, name='photo detail'),
+    path('photo/<int:photo_id>/', photo_detail, name='photo detail'),
     path('deletephoto/<int:id>/', photo_delete, name='photo delete'),
+    path('photolikes/<int:id>/', photo_like, name='photo like'),
     path('about/', about, name='about'),
+    path('covid/', covid, name='covid'),
 
     
 ]

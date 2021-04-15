@@ -1,14 +1,42 @@
 {% include "base.html"%}
-{% block content %}
-    <form method='post' enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Upload</button>
-    </form>
 
-    {% for photo in photo%}
-    {{photo.caption}}
-    {{photo.poster.username}}
-    <img src="{{ photo.image.url }}" height='250px' width="25%">
-{%endfor%}
-{%endblock content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <title>Document</title>
+<style>
+  
+.contain, .flex {
+     box-sizing: border-box;
+     
+ }
+.contain {
+    
+    margin: auto;
+    text-align: center;
+}
+.flex {
+    float: left;
+    margin: 30px;
+    width: 25%;
+    padding: 5px;
+}
+    
+</style>    
+</head>
+<body>
+    
+    {% block content %}
+        <form method='post' enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form>
+        <hr/>
+    {%endblock content%}
+</body>
+</html>
