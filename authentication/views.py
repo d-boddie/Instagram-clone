@@ -40,6 +40,8 @@ def edit_profile(request, user_id):
     initial_data = {
         'username': current_user.username,
         'password': current_user.password,
+        'bio': current_user.bio,
+        'website': current_user.website,
         'email': current_user.email,
         'first_name': current_user.first_name,
         'last_name': current_user.last_name
@@ -101,6 +103,8 @@ class LoginView(View):
                 login(request, new_user)
                 return redirect(request.GET.get('next', 'homepage'))
 
+        return redirect(request.GET.get('next', 'sign_up'))        
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))
@@ -122,26 +126,30 @@ def index(request):
 
 @login_required
 def user_detail(request, user_id):
-    current_user = request.user
-    posts = InstagramUser.objects.filter(id=user_id)
-    photo = Photo.objects.all().filter(poster=request.user)
+    posts = InstagramUser.objects.all().filter(id=user_id)
+    photo = Photo.objects.all().filter(poster_id=user_id)
+    # followers = 
     return render(request, "user_detail.html", {
-        'heading': 'Profile Page', 'posts': posts, 'photo':photo })
+        'heading': 'Profile Page', 
+        'photo':photo, 
+        'posts': posts, 
+        'user_id': user_id,
+         })
 
 
 @login_required
 def follow(request, user_id):
-    current_user = request.user
+    current_user = InstagramUser.objects.get(username=request.user)
     following = InstagramUser.objects.get(id=user_id)
-    current_user.follow.add(following)
-    is_following = True
-    return HttpResponseRedirect(reverse('homepage'))
+    current_user.friend.add(following)
+    current_user.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required
 def unfollow(request, user_id):
-    current_user = request.user
+    current_user = InstagramUser.objects.get(username=request.user)
     following = InstagramUser.objects.get(id=user_id)
-    current_user.follow.remove(following)
-    is_following = False
-    return HttpResponseRedirect(reverse('homepage'))
+    current_user.friend.remove(following)
+    current_user.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
