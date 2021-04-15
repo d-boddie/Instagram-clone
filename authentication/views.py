@@ -51,7 +51,6 @@ def edit_profile(request, user_id):
             data = form.cleaned_data
             edit_profile.bio = data['bio']
             edit_profile.website = data['website']
-            edit_profile.email = data['email']
             edit_profile.first_name = data['first_name']
             edit_profile.last_name = data['last_name']
             edit_profile.save()
@@ -107,8 +106,10 @@ def logout_view(request):
 
 @login_required
 def index(request):
+    print(request.user.avatar)
     posts = InstagramUser.objects.all()
     photos = Photo.objects.all()
+    photo = Photo.objects.all().first()
     comments = Comment.objects.all()
     form = CommentForm()
     data = {
@@ -122,19 +123,22 @@ def index(request):
 
 @login_required
 def user_detail(request, user_id):
-    current_user = request.user
+
     posts = InstagramUser.objects.filter(id=user_id)
-    photo = Photo.objects.all().filter(poster=request.user)
+    print(dir(posts.first()))
+    photo = Photo.objects.all().filter(poster_id=user_id)
     return render(request, "user_detail.html", {
         'heading': 'Profile Page', 'posts': posts, 'photo':photo })
 
 
 @login_required
 def follow(request, user_id):
-    current_user = request.user
+    current_user = InstagramUser.objects.get(id=request.user.id)
     following = InstagramUser.objects.get(id=user_id)
     current_user.follow.add(following)
-    is_following = True
+    current_user.save()
+    print(dir(current_user.follow))
+    # is_following = True
     return HttpResponseRedirect(reverse('homepage'))
 
 

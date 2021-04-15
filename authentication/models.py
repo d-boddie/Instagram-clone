@@ -10,6 +10,7 @@ class InstagramUser(AbstractUser):
     display_name = models.CharField(max_length=20)
     follow = models.ManyToManyField('self', related_name="follows", symmetrical=False, 
             blank=True)
+    avatar = models.ImageField(upload_to='photos/', blank=True, null=True)
 
     def count_followers(self):
         return self.follow.count()
