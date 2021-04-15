@@ -16,7 +16,7 @@ class InstagramUserAdmin(UserAdmin):
         }),
     )
     fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': (['display_name', 'website', 'bio'])
+        (None, {'fields': (['display_name', 'friends','website', 'bio'])
         }),
     )
 
