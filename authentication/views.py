@@ -131,8 +131,8 @@ def index(request):
 @login_required
 def user_detail(request, user_id):
     posts = InstagramUser.objects.all().filter(id=user_id)
+    friend = InstagramUser.objects.get(id=user_id)
     photo = Photo.objects.all().filter(poster_id=user_id)
-    # followers = 
     return render(request, "user_detail.html", {
         'heading': 'Profile Page', 
         'photo':photo, 

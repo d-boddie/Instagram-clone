@@ -71,17 +71,27 @@
             <div class="friends">
                 <div class="bar">
                     {% for u in users %}
-                        <div class="follows">
-                            {% if u.avatar %}
-                                <a href="user/{{u.id}}"><img class="pictures" src="{{u.avatar.url}}" alt="profile_pic"></a>
-                                <a class="user" href="user/{{u.id}}">{{u.username}}</a>
-                                <a class="follow-link" href="follow/{{u.id}}">Follow</a>
-                            {% else %}
-                                <a href="user/{{u.id}}"><img class="pictures" src="{% static 'image/default.jpg' %}"/></a>
-                                <a class="user" href="user/{{u.id}}">{{u.username}}</a>
-                                <a class="follow-link" href="follow/{{u.id}}">Follow</a>
-                            {% endif %}
-                        </div>
+                        {% if u.username != request.user.username %}
+                            <div class="follows">
+                                {% if u.avatar %}
+                                    <a href="user/{{u.id}}"><img class="pictures" src="{{u.avatar.url}}" alt="profile_pic"></a>
+                                    <a class="user" href="user/{{u.id}}">{{u.username}}</a>
+                                    {% if u in request.user.friends.all %}
+                                        <a  class="follow-link" href="unfollow/{{u.id}}">Unfollow</a>
+                                    {% else %}
+                                        <a  class="follow-link" href="follow/{{u.id}}">Follow</a>
+                                    {% endif %}
+                                {% else %}
+                                    <a href="user/{{u.id}}"><img class="pictures" src="{% static 'image/default.jpg' %}"/></a>
+                                    <a class="user" href="user/{{u.id}}">{{u.username}}</a>
+                                    {% if u in request.user.friends.all %}
+                                        <a  class="follow-link" href="unfollow/{{u.id}}">Unfollow</a>
+                                    {% else %}
+                                        <a  class="follow-link" href="follow/{{u.id}}">Follow</a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
