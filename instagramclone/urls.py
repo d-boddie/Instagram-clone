@@ -24,6 +24,7 @@ from about.views import about
 from covid.views import covid
 from dogs.views import dogs
 from user.views import avatar
+from news.views import news
 
 
 urlpatterns = [
@@ -48,7 +49,8 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('covid/', covid, name='covid'),
     path('dogs/', dogs, name='dogs'),
-    path('avatar/<int:id>/', avatar, name='avatar')
+    path('avatar/<int:id>/', avatar, name='avatar'),
+    path('news/', news, name='news'),
 
     
 ]

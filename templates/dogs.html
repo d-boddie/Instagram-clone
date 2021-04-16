@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body{
+            background-color: black;
+        }
   
         .contain, .flex {
             box-sizing: border-box;
@@ -22,6 +25,7 @@
             width: 25%;
             padding: 5px;
         }
+
     
 </style>   
 </head>
@@ -30,7 +34,7 @@
    
         {% for i in images %}
             <div class="flex">
-                <img src={{i}} alt="" srcset="" width="250px" height="250px">
+                <img src={{i}} alt="" srcset="" width="350px" height="350px">
             </div>
         {% endfor %}
 
