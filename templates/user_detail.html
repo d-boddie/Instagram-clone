@@ -35,6 +35,13 @@
             color: red;
             font-size: 25px;
         }
+        
+        #profile-pic{
+            width:250px;
+            height:250px;
+            border-radius:100%;
+        }
+
 
     </style>   
 
@@ -56,10 +63,11 @@
         <table>
             <tr>
                 {% if request.user.id != user_id %}
-                    {% if friends in request.user.friend.all %}
+                    {% if posts.first in request.user.friends.all %}
                         <!-- <th><a href="/follow/{{ post.id }}" class="btn btn-primary">follow me</a></th> -->
                         <th><a href="/unfollow/{{ post.id }}" class="btn btn-primary">unfollow me</a></th>
-                    {% else %}
+                    
+                {% else %}
                         <!-- <th><a href="/unfollow/{{ post.id }}" class="btn btn-primary">unfollow me</a></th> -->
                         <th><a href="/follow/{{ post.id }}" class="btn btn-primary">follow me</a></th>
                     {% endif%}
@@ -75,15 +83,15 @@
                 <th>{{ post.email }}</th>
             </tr>
             <tr>
-                <th>Followers: {{ post.follow.all | length }}</th>
+                <th>Followers: {{ post.friends.count | length }}</th>
             </tr>
             {% if post.bio or post.website %}
             <tr>
                 <th>{{ post.bio }}</th>
-                <img src="{{post.avatar.url}}" alt="bckhbfkjvbcl" srcset=""/>
+                <img id="profile-pic" src="{{post.avatar.url}}" alt="profile-pic"/>
             </tr>
             <tr>
-                <th><a href="{{post.website}}">{{ post.website }}</a></th>
+                <th><a href="{{post.website}}" target="_blank">{{ post.website }}</a></th>
             </tr>
             {% endif %}
         </table>
