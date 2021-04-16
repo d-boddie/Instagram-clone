@@ -57,9 +57,15 @@
     </select>
     <div class="data">
         <br>
-
+    
     <h1>{{ heading }}</h1>
     {% for post in posts %}
+        {% if post.avatar%}
+            <img id="profile-pic" src="{{post.avatar.url}}" alt="profile-pic"/>
+        {% else %}
+            <img id="profile-pic" src="{% static 'image/default.jpg' %}" alt="profile-pic"/>
+        {% endif %}
+
         <table>
             <tr>
                 {% if request.user.id != user_id %}
@@ -88,7 +94,6 @@
             {% if post.bio or post.website %}
             <tr>
                 <th>{{ post.bio }}</th>
-                <img id="profile-pic" src="{{post.avatar.url}}" alt="profile-pic"/>
             </tr>
             <tr>
                 <th><a href="{{post.website}}" target="_blank">{{ post.website }}</a></th>

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, HttpResponseRedirect
 from .forms import CommentForm
 from .models import Comment
 from photo.models import Photo
@@ -18,7 +18,7 @@ def comment(request, id):
                 photo=photo,
                 creator=request.user
             )
-        return redirect(reverse('homepage'))
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     form = CommentForm()
     return render(request, 'comments.html', {
