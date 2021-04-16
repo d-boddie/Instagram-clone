@@ -25,6 +25,7 @@ from covid.views import covid
 from dogs.views import dogs
 from user.views import avatar
 from news.views import news
+from shoes.views import shoes
 
 
 urlpatterns = [
@@ -51,6 +52,7 @@ urlpatterns = [
     path('dogs/', dogs, name='dogs'),
     path('avatar/<int:id>/', avatar, name='avatar'),
     path('news/', news, name='news'),
+    path('shoes/', shoes, name='shoes'),
 
     
 ]
