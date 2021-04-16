@@ -33,33 +33,36 @@ class SignUpView(View):
             login(request, new_user)
             return redirect(reverse('homepage'))
 
+
 @login_required
 def edit_profile(request, user_id):
-    context = {}
     current_user = request.user
+    edit_profile = InstagramUser.objects.get(id=current_user.id)
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, request.FILES, instance=edit_profile)
+        if form.is_valid():
+            edit_profile = form.save(commit=False)
+            data = form.cleaned_data
+            edit_profile.bio = data['bio']
+            edit_profile.website = data['website']
+            edit_profile.first_name = data['first_name']
+            edit_profile.last_name = data['last_name']
+            edit_profile.avatar = data['avatar']
+            edit_profile.save()
+            return redirect(reverse('homepage'))
+
     initial_data = {
         'username': current_user.username,
         'password': current_user.password,
+        'bio': current_user.bio,
+        'website': current_user.website,
         'email': current_user.email,
         'first_name': current_user.first_name,
         'last_name': current_user.last_name
         }
-    edit_profile = InstagramUser.objects.get(id=current_user.id)
-    if request.method == 'POST':
-        form = EditProfileForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            edit_profile.bio = data['bio']
-            edit_profile.website = data['website']
-            edit_profile.email = data['email']
-            edit_profile.first_name = data['first_name']
-            edit_profile.last_name = data['last_name']
-            edit_profile.save()
-            return redirect(reverse('homepage'))
-        return render(request, 'edit.html', {"form": form})
     form = EditProfileForm(initial=initial_data)
-    context.update({'form': form})
     return render(request, 'edit.html', {"header": "Edit Profile settings", 'form': form})
+
 
 @login_required
 def edit_account(request, user_id):
@@ -101,12 +104,17 @@ class LoginView(View):
                 login(request, new_user)
                 return redirect(request.GET.get('next', 'homepage'))
 
+        return redirect(request.GET.get('next', 'sign_up'))        
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))
 
 @login_required
 def index(request):
+    current_user = InstagramUser.objects.get(username=request.user)
+    current_user.friends.add(current_user)
+    current_user.save()
     posts = InstagramUser.objects.all()
     photos = Photo.objects.all()
     comments = Comment.objects.all()
@@ -115,33 +123,39 @@ def index(request):
         'users': posts,
         'photos': photos,
         'comments': comments,
-        'form': form
+        'form': form,
     }
     return render(request, "index.html", data)
 
 
 @login_required
 def user_detail(request, user_id):
-    current_user = request.user
-    posts = InstagramUser.objects.filter(id=user_id)
-    photo = Photo.objects.all().filter(poster=request.user)
+    posts = InstagramUser.objects.all().filter(id=user_id)
+    friend = InstagramUser.objects.get(id=user_id)
+    photo = Photo.objects.all().filter(poster_id=user_id)
     return render(request, "user_detail.html", {
-        'heading': 'Profile Page', 'posts': posts, 'photo':photo })
+        'heading': 'Profile Page', 
+        'photo':photo, 
+        'posts': posts, 
+        'user_id': user_id,
+         })
 
 
 @login_required
 def follow(request, user_id):
-    current_user = request.user
+    current_user = InstagramUser.objects.get(username=request.user)
     following = InstagramUser.objects.get(id=user_id)
-    current_user.follow.add(following)
     is_following = True
-    return HttpResponseRedirect(reverse('homepage'))
+    current_user.friends.add(following)
+    current_user.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required
 def unfollow(request, user_id):
-    current_user = request.user
+    current_user = InstagramUser.objects.get(username=request.user)
     following = InstagramUser.objects.get(id=user_id)
-    current_user.follow.remove(following)
     is_following = False
-    return HttpResponseRedirect(reverse('homepage'))
+    current_user.friends.remove(following)
+    current_user.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

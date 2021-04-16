@@ -30,6 +30,19 @@
         .profile {
             margin: 20px;
         }
+
+        .username {
+            color: red;
+            font-size: 25px;
+        }
+        
+        #profile-pic{
+            width:250px;
+            height:250px;
+            border-radius:100%;
+        }
+
+
     </style>   
 
 </head>
@@ -44,12 +57,30 @@
     </select>
     <div class="data">
         <br>
-
+    
     <h1>{{ heading }}</h1>
     {% for post in posts %}
+        {% if post.avatar%}
+            <img id="profile-pic" src="{{post.avatar.url}}" alt="profile-pic"/>
+        {% else %}
+            <img id="profile-pic" src="{% static 'image/default.jpg' %}" alt="profile-pic"/>
+        {% endif %}
+
         <table>
             <tr>
-                <th>{{ post.username }}</th>
+                {% if request.user.id != user_id %}
+                    {% if posts.first in request.user.friends.all %}
+                        <!-- <th><a href="/follow/{{ post.id }}" class="btn btn-primary">follow me</a></th> -->
+                        <th><a href="/unfollow/{{ post.id }}" class="btn btn-primary">unfollow me</a></th>
+                    
+                {% else %}
+                        <!-- <th><a href="/unfollow/{{ post.id }}" class="btn btn-primary">unfollow me</a></th> -->
+                        <th><a href="/follow/{{ post.id }}" class="btn btn-primary">follow me</a></th>
+                    {% endif%}
+                {% endif %}
+            </tr>
+            <tr>
+                <th class="username">{{ post.username }} </th>
             </tr>
             <tr>
                 <th>{{ post.first_name }} {{ post.last_name }}</th>
@@ -58,14 +89,14 @@
                 <th>{{ post.email }}</th>
             </tr>
             <tr>
-                <th>Followers: {{ post.follow.all | length }}</th>
+                <th>Followers: {{ post.friends.count | length }}</th>
             </tr>
             {% if post.bio or post.website %}
             <tr>
                 <th>{{ post.bio }}</th>
             </tr>
             <tr>
-                <th><a href="{{post.website}}">{{ post.website }}</a></th>
+                <th><a href="{{post.website}}" target="_blank">{{ post.website }}</a></th>
             </tr>
             {% endif %}
         </table>
@@ -73,7 +104,6 @@
 </div>    
      <div class="contain">
         {% for photo in photo %}
-        
         <div class="flex">
             <div class="card" style="width: 18rem;">
                 {% if photo.image %}
@@ -101,7 +131,7 @@
 
     {% comment %} <p><button><a href="/logout/">Log out</a></button></p> {% endcomment %}
 
-{%endblock content%}
+{% endblock content %}
 
 </body>
 </html>

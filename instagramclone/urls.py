@@ -23,6 +23,9 @@ from photo.views import photo_view, photo_detail, photo_delete, photo_like
 from about.views import about
 from covid.views import covid
 from dogs.views import dogs
+from user.views import avatar
+from news.views import news
+from shoes.views import shoes
 
 
 urlpatterns = [
@@ -47,6 +50,9 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('covid/', covid, name='covid'),
     path('dogs/', dogs, name='dogs'),
+    path('avatar/<int:id>/', avatar, name='avatar'),
+    path('news/', news, name='news'),
+    path('shoes/', shoes, name='shoes'),
 
     
 ]
