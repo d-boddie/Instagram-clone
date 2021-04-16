@@ -8,6 +8,6 @@ def news(request):
     try:
         response = requests.get(url).json()
         posts = response['articles']
-        return render(request, 'news.html', {'posts':posts})
+        return render(request, 'news.html', {'posts': posts})
     except ConnectionError:
         return render(request, '500.html')
