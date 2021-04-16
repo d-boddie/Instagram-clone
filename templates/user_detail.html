@@ -57,10 +57,19 @@
     </select>
     <div class="data">
         <br>
-
+    
     <h1>{{ heading }}</h1>
     {% for post in posts %}
+<<<<<<< HEAD
+        {% if post.avatar%}
+            <img id="profile-pic" src="{{post.avatar.url}}" alt="profile-pic"/>
+        {% else %}
+            <img id="profile-pic" src="{% static 'image/default.jpg' %}" alt="profile-pic"/>
+        {% endif %}
+
+=======
     <img id="profile-pic" src="{{post.avatar.url}}" alt="profile-pic"/>
+>>>>>>> 8297691e00ecccaae816abed17fb27c28cf7a8b2
         <table>
             <tr>
                 {% if request.user.id != user_id %}
