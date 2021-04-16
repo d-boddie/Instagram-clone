@@ -43,13 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authentication',
-    'api',
     'comment',
     'photo',
     'covid',
     'about',
     'dogs',
-    'home',
     'user'
 ]
 

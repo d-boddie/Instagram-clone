@@ -144,7 +144,7 @@ def follow(request, user_id):
     current_user = InstagramUser.objects.get(username=request.user)
     following = InstagramUser.objects.get(id=user_id)
     is_following = True
-    current_user.friend.add(following)
+    current_user.friends.add(following)
     # current_user.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -154,6 +154,6 @@ def unfollow(request, user_id):
     current_user = InstagramUser.objects.get(username=request.user)
     following = InstagramUser.objects.get(id=user_id)
     is_following = False
-    current_user.friend.remove(following)
+    current_user.friends.remove(following)
     # current_user.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
