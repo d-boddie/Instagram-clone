@@ -12,11 +12,11 @@ class InstagramUser(AbstractUser):
             blank=True)
     avatar = models.ImageField(upload_to='photos/', blank=True, null=True)
 
-    def count_friends(self):
-        return self.friend.count()
+    # def count_friends(self):
+    #     return self.friend.count()
 
-    def count_follower(self):
-        return self.follower.count()
+    # def count_follower(self):
+    #     return self.follower.count()
         
     def __str__(self):
         return self.username

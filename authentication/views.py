@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import LoginForm, SignupForm, EditProfileForm, EditAccountForm
 from .models import InstagramUser
@@ -34,11 +35,28 @@ class SignUpView(View):
             return redirect(reverse('homepage'))
 
 
-@login_required
-def edit_profile(request, user_id):
-    current_user = request.user
-    edit_profile = InstagramUser.objects.get(id=current_user.id)
-    if request.method == 'POST':
+class EditProfileView(LoginRequiredMixin, View):
+    def get(self, request, user_id):
+        current_user = request.user
+
+        initial_data = {
+            'username': current_user.username,
+            'password': current_user.password,
+            'bio': current_user.bio,
+            'website': current_user.website,
+            'email': current_user.email,
+            'first_name': current_user.first_name,
+            'last_name': current_user.last_name
+        }    
+
+        template_name = "edit.html"
+        form = EditProfileForm(initial=initial_data)
+        return render(request, template_name, 
+            {"header": "Edit Profile settings", 'form': form})
+
+    def post(self, request, user_id):
+        current_user = request.user
+        edit_profile = InstagramUser.objects.get(id=current_user.id)
         form = EditProfileForm(request.POST, request.FILES, instance=edit_profile)
         if form.is_valid():
             edit_profile = form.save(commit=False)
@@ -51,19 +69,8 @@ def edit_profile(request, user_id):
             edit_profile.save()
             return redirect(reverse('homepage'))
 
-    initial_data = {
-        'username': current_user.username,
-        'password': current_user.password,
-        'bio': current_user.bio,
-        'website': current_user.website,
-        'email': current_user.email,
-        'first_name': current_user.first_name,
-        'last_name': current_user.last_name
-        }
-    form = EditProfileForm(initial=initial_data)
-    return render(request, 'edit.html', {"header": "Edit Profile settings", 'form': form})
-
-
+        
+        
 @login_required
 def edit_account(request, user_id):
     context = {}
@@ -106,9 +113,11 @@ class LoginView(View):
 
         return redirect(request.GET.get('next', 'sign_up'))        
 
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))
+
 
 @login_required
 def index(request):
