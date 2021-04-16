@@ -112,9 +112,11 @@ def logout_view(request):
 
 @login_required
 def index(request):
+    current_user = InstagramUser.objects.get(username=request.user)
+    current_user.friends.add(current_user)
+    current_user.save()
     posts = InstagramUser.objects.all()
     photos = Photo.objects.all()
-    photo = Photo.objects.all().first()
     comments = Comment.objects.all()
     form = CommentForm()
     data = {
@@ -145,7 +147,7 @@ def follow(request, user_id):
     following = InstagramUser.objects.get(id=user_id)
     is_following = True
     current_user.friends.add(following)
-    # current_user.save()
+    current_user.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
@@ -155,5 +157,5 @@ def unfollow(request, user_id):
     following = InstagramUser.objects.get(id=user_id)
     is_following = False
     current_user.friends.remove(following)
-    # current_user.save()
+    current_user.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
