@@ -60,6 +60,7 @@
 
     <h1>{{ heading }}</h1>
     {% for post in posts %}
+    <img id="profile-pic" src="{{post.avatar.url}}" alt="profile-pic"/>
         <table>
             <tr>
                 {% if request.user.id != user_id %}
@@ -88,7 +89,6 @@
             {% if post.bio or post.website %}
             <tr>
                 <th>{{ post.bio }}</th>
-                <img id="profile-pic" src="{{post.avatar.url}}" alt="profile-pic"/>
             </tr>
             <tr>
                 <th><a href="{{post.website}}" target="_blank">{{ post.website }}</a></th>
