@@ -35,6 +35,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('sign_up/', views.SignUpView.as_view(), name='sign_up'),
     path('user/<int:user_id>', views.user_detail, name='detail'),
+    path('delete-user/<int:user_id>', views.delete_user, name='delete-user'),
     path('editprofile/<int:user_id>', views.EditProfileView.as_view(), name='edit profile'),
     path('editaccount/<int:user_id>', views.edit_account, name='edit account'),
     path('follow/<int:user_id>', views.follow, name="follow"),

@@ -168,3 +168,9 @@ def unfollow(request, user_id):
     current_user.friends.remove(following)
     current_user.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def delete_user(request, user_id):
+    account = InstagramUser.objects.get(id=user_id)
+    account.delete()
+    return redirect(reverse('sign_up'))
