@@ -15,8 +15,9 @@
         <div class="card-body">
             <h5 class="card-title">{{photo.caption}}</h5>
             <p class="card-text">{{photo.poster.username}}</p>
+            {% if request.user == photo.poster %}
             <a href="/deletephoto/{{photo.id}}/" class="btn btn-danger">Delete</a>
-            <a href="/avatar/{{photo.id}}">make profile pic</a>
+            {% endif %}
         </div>
     </div>
 {%endblock content%}
