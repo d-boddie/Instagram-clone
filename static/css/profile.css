@@ -1,0 +1,31 @@
+.contain, .flex {
+    box-sizing: border-box;
+    
+}
+.contain {
+   
+   margin: auto;
+   text-align: center;
+}
+.flex {
+   float: left;
+   margin: 30px;
+   width: 25%;
+   padding: 5px;
+}
+  
+.profile {
+   margin: 25px;
+   
+}
+
+.username {
+   color: red;
+   font-size: 25px;
+}
+
+#profile-pic{
+   width:125px;
+   height:125px;
+   border-radius:100%;
+}
