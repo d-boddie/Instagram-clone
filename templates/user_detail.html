@@ -6,58 +6,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- <link rel="stylesheet" href="{% static 'css/index.css' %}"> -->
-
-    <style>
-  
-        .contain, .flex {
-             box-sizing: border-box;
-             
-         }
-        .contain {
-            
-            margin: auto;
-            text-align: center;
-        }
-        .flex {
-            float: left;
-            margin: 30px;
-            width: 25%;
-            padding: 5px;
-        }
-           
-        .profile {
-            margin: 20px;
-        }
-
-        .username {
-            color: red;
-            font-size: 25px;
-        }
-        
-        #profile-pic{
-            width:250px;
-            height:250px;
-            border-radius:100%;
-        }
-
-
-    </style>   
-
+    <title>Photo-ish Profile</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 </head>
 <body>
 {% block content %}
 
 <div class="profile">
-    <select name="forma" onchange="location = this.value;">
-        <option></option>
-        <option value="/editprofile/{{user.id}}">Edit profile settings</option>
-        <option value="/editaccount/{{user.id}}">Edit account settings</option>
-    </select>
+
+    {% if request.user.id == user_id %}
+        <select name="forma" onchange="location = this.value;">
+            <option></option>
+            <option value="/editprofile/{{user.id}}">Edit profile settings</option>
+            <option value="/editaccount/{{user.id}}">Edit account settings</option>
+        </select>
+    {% endif %}
+
     <div class="data">
-        <br>
-    
+
+
     <h1>{{ heading }}</h1>
     {% for post in posts %}
         {% if post.avatar%}
@@ -65,74 +32,92 @@
         {% else %}
             <img id="profile-pic" src="{% static 'image/default.jpg' %}" alt="profile-pic"/>
         {% endif %}
-
+        
         <table>
-            <tr>
-                {% if request.user.id != user_id %}
-                    {% if posts.first in request.user.friends.all %}
-                        <!-- <th><a href="/follow/{{ post.id }}" class="btn btn-primary">follow me</a></th> -->
-                        <th><a href="/unfollow/{{ post.id }}" class="btn btn-primary">unfollow me</a></th>
-                    
-                {% else %}
-                        <!-- <th><a href="/unfollow/{{ post.id }}" class="btn btn-primary">unfollow me</a></th> -->
-                        <th><a href="/follow/{{ post.id }}" class="btn btn-primary">follow me</a></th>
-                    {% endif%}
-                {% endif %}
-            </tr>
-            <tr>
-                <th class="username">{{ post.username }} </th>
-            </tr>
-            <tr>
-                <th>{{ post.first_name }} {{ post.last_name }}</th>
-            </tr>
-            <tr>
-                <th>{{ post.email }}</th>
-            </tr>
-            <tr>
-                <th>Followers: {{ post.friends.count | length }}</th>
-            </tr>
+                <tr>
+                    {% if request.user.id != user_id %}
+                        {% if posts.first in request.user.friends.all %}
+                            <th><a href="/unfollow/{{ post.id }}" class="btn btn-primary">unfollow me</a></th>
+                        
+                    {% else %}
+                            <th><a href="/follow/{{ post.id }}" class="btn btn-primary">follow me</a></th>
+                        {% endif%}
+                    {% endif %}
+                </tr>
+                <tr>
+                    <th class="username">{{ post.username }} </th>
+                </tr>
+                <tr>
+                    <th>{{ post.first_name }} {{ post.last_name }}</th>
+                </tr>
+                <tr>
+                    <th>{{ post.email }}</th>
+                </tr>
+                <tr>
+                    <th>Followers: {{ post.friends.count | length }}</th>
+                </tr>
             {% if post.bio or post.website %}
-            <tr>
-                <th>{{ post.bio }}</th>
-            </tr>
-            <tr>
-                <th><a href="{{post.website}}" target="_blank">{{ post.website }}</a></th>
-            </tr>
+                <tr>
+                    <th>{{ post.bio }}</th>
+                </tr>
+                <tr>
+                    <th><a href="{{post.website}}" target="_blank">{{ post.website }}</a></th>
+                </tr>
             {% endif %}
         </table>
     {% endfor %}
-</div>    
-     <div class="contain">
-        {% for photo in photo %}
-        <div class="flex">
-            <div class="card" style="width: 18rem;">
-                {% if photo.image %}
-                    <a href="/photo/{{ photo.id}}/">
+
+    {% if request.user.id == user_id %}
+        <a id="delete" href="" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Delete Account
+        </a>
+    {% endif %}
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    Are you sure?? You'll lose all your pictures 
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <a href="/delete-user/{{user.id}}"><button type="button" class="btn btn-danger">Delete</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      <hr>
+</div>
+
+<div class="contain">
+{% for photo in photo %}
+    <div class="flex">
+        <div class="card" style="width: 18rem;">
+            {% if photo.image %}
+                <a href="/photo/{{ photo.id}}/">
                     <img class="photo" src="{{ photo.image.url }}" height='250px' width="250px">
-                    </a>
-                    <br/>
-                {% endif %}
+                </a>
+                <br/>
+            {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{photo.poster.username}}</h5>
                     <p class="card-text">{{photo.caption}}</p>
-                    <!-- <a href="/photolikes/{{ photo.id }}/" class="btn btn-primary"><i class="bi bi-hand-thumbs-up-fill">{{photo.button}}</i></a> -->
                 </div>
-                {{photo.total_likes}} Likes
-                {% for person in photo.likes.all%}
-                    <p><strong>Liked by </strong>{{person.username}}</p>
-                {%endfor%}
-            </div>
+            {{photo.total_likes}} Likes
+            {% for person in photo.likes.all%}
+                <p><strong>Liked by </strong>{{person.username}}</p>
+            {%endfor%}
         </div>
-        {%endfor%}
-
-
-
-
-
-    {% comment %} <p><button><a href="/logout/">Log out</a></button></p> {% endcomment %}
+    </div>
+{%endfor%}
 
 {% endblock content %}
 
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>
 </html>
 

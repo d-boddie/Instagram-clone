@@ -12,7 +12,8 @@ class LoginForm(forms.Form):
         required=True,
         label='',
         widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
-    
+
+
 class SignupForm(forms.Form):
     first_name = forms.CharField(
         max_length=50,
@@ -38,6 +39,7 @@ class SignupForm(forms.Form):
         label='',
         widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
 
+
 class EditProfileForm(forms.ModelForm):
     class Meta:
         model = InstagramUser
@@ -49,6 +51,7 @@ class EditProfileForm(forms.ModelForm):
             "last_name",
             'avatar'
         ]
+
 
 class EditAccountForm(forms.Form):
     username = forms.CharField(max_length=40)
