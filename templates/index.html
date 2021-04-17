@@ -44,7 +44,54 @@
                             <a class="user" href="user/{{photo.poster_id}}">{{photo.poster.username}}</a>
                             {{photo.caption}}
                             <br>
-                            <a id="comments" href="#">View all comments</a>
+                            <a id="comments" data-bs-toggle="modal" data-bs-target="#exampleModal{{photo.id}}">
+                                View all comments
+                            </a>
+                            <div class="modal fade" id="exampleModal{{photo.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            {% for p in users  %}
+                                                {% if p.id == photo.poster_id %}
+                                                    {% if p.avatar %}
+                                                        <img class="thumbnail" src="{{ p.avatar.url }}"/>
+                                                    {% else %}
+                                                        <img class="thumbnail" src="{% static 'image/default.jpg' %}"/>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            <a class="user-1" href="user/{{ photo.poster_id }}">{{photo.poster.username}}</a>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                           <img src="{{photo.image.url}}" alt="photo" width="250px" height="350px">
+                                            <div class="card" style="width: 18rem;">
+                                                <div class="card-body one">
+                                                    <div class="comments">
+                                                        {% for c in all_comments %}
+                                                            {% if c.photo_id == photo.id %}
+                                                                <p class="card-text">
+                                                                    {% if c.creator.avatar %}
+                                                                        <img class="thumbnail" src="{{ c.creator.avatar.url }}"/>
+                                                                    {% else %}
+                                                                        <img class="thumbnail" src="{% static 'image/default.jpg' %}"/>
+                                                                    {% endif %}
+                                                                    <a href="user/{{c.creator_id}}" class="user">{{c.creator}}<a>
+                                                                    {{ c.post }}
+                                                                </p>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </p>
                         
                         <div class="comments">
@@ -67,37 +114,52 @@
             {% endif %}
             {% endfor %}
         </div>
-    
-            <div class="friends">
-                <div class="bar">
-                    {% for u in users %}
-                            <div class="follows">
-                                {% if u.avatar %}
-                                    <a href="user/{{u.id}}"><img class="pictures" src="{{u.avatar.url}}" alt="profile_pic"></a>
-                                    <a class="user" href="user/{{u.id}}">{{u.username}}</a>
-                                    {% if u.username != request.user.username %}
-                                        {% if u in request.user.friends.all %}
-                                            <a  class="follow-link" href="unfollow/{{u.id}}">Unfollow</a>
-                                        {% else %}
-                                            <a  class="follow-link" href="follow/{{u.id}}">Follow</a>
+
+            <div>
+                <div class="friends">
+                    <div class="bar">
+                        {% for u in users %}
+                                <div class="follows">
+                                    {% if u.avatar %}
+                                        <a href="user/{{u.id}}"><img class="pictures" src="{{u.avatar.url}}" alt="profile_pic"></a>
+                                        <a class="user" href="user/{{u.id}}">{{u.username}}</a>
+                                        {% if u.username != request.user.username %}
+                                            {% if u in request.user.friends.all %}
+                                                <a  class="follow-link" href="unfollow/{{u.id}}">Unfollow</a>
+                                            {% else %}
+                                                <a  class="follow-link" href="follow/{{u.id}}">Follow</a>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% else %}
+                                        <a href="user/{{u.id}}"><img class="pictures" src="{% static 'image/default.jpg' %}"/></a>
+                                        <a class="user" href="user/{{u.id}}">{{u.username}}</a>
+                                        {% if u.username != request.user.username %}
+                                            {% if u in request.user.friends.all %}
+                                                <a  class="follow-link" href="unfollow/{{u.id}}">Unfollow</a>
+                                            {% else %}
+                                                <a  class="follow-link" href="follow/{{u.id}}">Follow</a>
+                                            {% endif %}
                                         {% endif %}
                                     {% endif %}
-                                {% else %}
-                                    <a href="user/{{u.id}}"><img class="pictures" src="{% static 'image/default.jpg' %}"/></a>
-                                    <a class="user" href="user/{{u.id}}">{{u.username}}</a>
-                                    {% if u.username != request.user.username %}
-                                        {% if u in request.user.friends.all %}
-                                            <a  class="follow-link" href="unfollow/{{u.id}}">Unfollow</a>
-                                        {% else %}
-                                            <a  class="follow-link" href="follow/{{u.id}}">Follow</a>
-                                        {% endif %}
-                                    {% endif %}
-                                {% endif %}
-                            </div>
-                    {% endfor %}
+                                </div>
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
+                 <footer class="about-footer">
+                    <br>
+                    <a href="/about">About</a>
+                    <a href="https://www.kenzie.academy/" target="_blank">Kenzie</a>
+                    <a href="/covid">Covid-19</a>
+                    <a href="/dogs">Dogs</a>
+                    <a href="/news">News</a>
+                    <a href="/shoes">Shoes</a>
+                    <br>
+                    <br>
+                    Copyrights &copy; <em id="date">2021</em> All Rights Reserved Team Cotton from Kenzie
+                </footer>
+           </div>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
     </body>
 </html>

@@ -116,14 +116,16 @@ def index(request):
     current_user.friends.add(current_user)
     current_user.save()
     posts = InstagramUser.objects.all()
-    photos = Photo.objects.all()
-    comments = Comment.objects.all()
+    photos = Photo.objects.all().order_by('-created_at')
+    comments = Comment.objects.all().order_by('-created_at')[0:2]
+    all_comments = Comment.objects.all()
     form = CommentForm()
     data = {
         'users': posts,
         'photos': photos,
         'comments': comments,
         'form': form,
+        'all_comments': all_comments
     }
     return render(request, "index.html", data)
 
