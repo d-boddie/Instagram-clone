@@ -10,6 +10,8 @@ from .models import InstagramUser
 from photo.models import Photo
 from comment.forms import CommentForm
 from comment.models import Comment
+from message.forms import MessageForm
+from message.models import Message
 
 # Create your views here.
 
@@ -34,7 +36,7 @@ class SignUpView(View):
             login(request, new_user)
             return redirect(reverse('homepage'))
 
-
+# @login_required
 class EditProfileView(LoginRequiredMixin, View):
     def get(self, request, user_id):
         current_user = request.user
@@ -113,7 +115,7 @@ class LoginView(View):
 
         return redirect(request.GET.get('next', 'sign_up'))        
 
-
+@login_required
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))
@@ -142,13 +144,17 @@ def index(request):
 @login_required
 def user_detail(request, user_id):
     posts = InstagramUser.objects.all().filter(id=user_id)
+    post = InstagramUser.objects.get(id=user_id)
     friend = InstagramUser.objects.get(id=user_id)
     photo = Photo.objects.all().filter(poster_id=user_id)
+    form = MessageForm()
     return render(request, "user_detail.html", {
         'heading': 'Profile Page', 
         'photo':photo, 
         'posts': posts, 
         'user_id': user_id,
+        'form': form,
+        'following': post.friends.count() - 1,
          })
 
 
@@ -158,6 +164,8 @@ def follow(request, user_id):
     following = InstagramUser.objects.get(id=user_id)
     is_following = True
     current_user.friends.add(following)
+    following.following.add(current_user)
+    following.save()
     current_user.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -168,6 +176,8 @@ def unfollow(request, user_id):
     following = InstagramUser.objects.get(id=user_id)
     is_following = False
     current_user.friends.remove(following)
+    following.following.remove(current_user)
+    following.save()
     current_user.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

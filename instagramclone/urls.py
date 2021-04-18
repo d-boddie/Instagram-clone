@@ -26,6 +26,7 @@ from dogs.views import dogs
 from user.views import avatar
 from news.views import news
 from shoes.views import shoes
+from message.views import messages, message_view
 
 
 urlpatterns = [
@@ -54,6 +55,8 @@ urlpatterns = [
     path('avatar/<int:id>/', avatar, name='avatar'),
     path('news/', news, name='news'),
     path('shoes/', shoes, name='shoes'),
+    path('create-message/<int:id>/', messages, name='messages'),
+    path('message/', message_view, name='messages'),
 
     
 ]

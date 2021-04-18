@@ -9,6 +9,7 @@ from photo.models import Photo
 def comment(request, id):
     photo = Photo.objects.get(id=id)
     comments = Comment.objects.all().first()
+    
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():

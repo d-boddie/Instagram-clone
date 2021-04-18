@@ -11,6 +11,8 @@ class InstagramUser(AbstractUser):
     friends = models.ManyToManyField('self', related_name="friend", symmetrical=False, 
             blank=True)
     avatar = models.ImageField(upload_to='photos/', blank=True, null=True)
+    following = models.ManyToManyField('self', related_name="follower", symmetrical=False, 
+            blank=True)
 
     # def count_friends(self):
     #     return self.friend.count()
