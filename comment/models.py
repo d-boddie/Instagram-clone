@@ -14,3 +14,4 @@ class Comment(models.Model):
     likes = models.IntegerField(default=0)
     photo = models.ForeignKey(
         Photo, related_name="photo", on_delete=models.CASCADE, default=True)
+    viewed = models.BooleanField(default=False)
