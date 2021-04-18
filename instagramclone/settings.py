@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'covid',
     'about',
     'dogs',
-    'user'
+    'user',
+    'message'
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,101 @@
+{% load static %}
+{% include "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    <style>
+        .main{
+            display: flex;
+            margin:auto;
+            text-align: center;
+            width: 50%;
+        }
+
+        .thumbnail {
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .user-1 {
+            font-weight: 700;
+            text-decoration: none;
+            color: black;
+            font-size: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="inbox">
+            <h3>In</h3>
+            {% for m in inbox  %}
+                <div class="card">
+                    <div class="card-header">
+                       {% if m.creator.avatar %}
+                            <img class="thumbnail" src="{{ m.creator.avatar.url }}"/>
+                        {% else %}
+                            <img class="thumbnail" src="{% static 'image/default.jpg' %}"/>
+                        {% endif %}
+                        <a class="user-1" href="/user/{{ m.creator.id }}">{{m.creator.username}}</a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Received at {{m.created_at}}</h5>
+                        <p class="card-text">{{m.message}}</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{m.id}}">
+                            Reply
+                        </button>
+                    </div>
+                </div>
+                 <div class="modal fade" id="exampleModal{{m.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                Reply
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/create-message/{{m.creator.id}}/" method="POST">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <input type="submit" class="btn btn-primary" value="Send">
+                                </form> 
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="sent">
+            <h3>Sent</h3>
+            {% for m in sent %}
+                <div class="card">
+                    <div class="card-header">
+                       {% if m.to.avatar %}
+                            <img class="thumbnail" src="{{ m.to.avatar.url }}"/>
+                        {% else %}
+                            <img class="thumbnail" src="{% static 'image/default.jpg' %}"/>
+                        {% endif %}
+                        <a class="user-1" href="/user/{{ m.to.id }}">{{m.to.username}}</a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Sent at {{m.created_at}}</h5>
+                        <p class="card-text">{{m.message}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+</body>
+</html>
