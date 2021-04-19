@@ -25,14 +25,42 @@ def messages(request, id):
 def message_view(request):
     inbox = Message.objects.all().filter(to=request.user)
     sent = Message.objects.all().filter(creator=request.user)
-    form = MessageForm()
-    data = {
-        'inbox': inbox,
-        'sent': sent,
-        'form': form
-    }
+    conversations = []
+
+    for m in inbox:
+        conversations.append(m.creator)
+    
+    for m in sent:
+        conversations.append(m.to)
+    
+    convo = list(set(conversations))
+    
+    data = {'convo': convo}
+
     return render(request, 'message.html', data)
 
+
+def chat(request, id):
+    form = MessageForm()
+    user_chat = Message.objects.filter(to=request.user).filter(creator=id)
+    friends_chat = Message.objects.filter(to=id).filter(creator=request.user)
+    messages = []
+
+    for m in user_chat:
+        messages.append(m)
+
+    for m in friends_chat:
+        messages.append(m)
+    
+    order = sorted(messages, key=lambda x: x.created_at)
+
+    data = {
+        'order': order,
+        'form': form,
+        "id": id
+    }
+    return render(request, 'chat.html', data)
+    
 
 def new_notice(request):
     messages = Message.objects.all().filter(to=request.user)

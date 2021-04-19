@@ -29,70 +29,36 @@
             color: black;
             font-size: 20px;
         }
+        .card{
+            width: 25% !important;
+        }
+        h4{
+            margin-top: 10px;
+        }
 
     </style>
 </head>
 <body>
     <div class="main">
-        <div class="inbox">
-            <h3>In</h3>
-            {% for m in inbox  %}
-                <div class="card">
-                    <div class="card-header">
-                       {% if m.creator.avatar %}
-                            <img class="thumbnail" src="{{ m.creator.avatar.url }}"/>
-                        {% else %}
-                            <img class="thumbnail" src="{% static 'image/default.jpg' %}"/>
-                        {% endif %}
-                        <a class="user-1" href="/user/{{ m.creator.id }}">{{m.creator.username}}</a>
-                    </div>
+        <div class="card">
+            <div class="card-header">
+                {% if request.user.avatar %}
+                    <img class="thumbnail" src="{{request.user.avatar.url}}" alt="avatar image">
+                {% else %}
+                    <img class="thumbnail" src="{% static 'image/default.jpg' %}" alt="avatar image">
+                {% endif %}
+               <a class="user-1" href="/">{{request.user.username}}</a>
+            </div>
+                <h4>Messages</h4>
+            {% for user in convo %}
                     <div class="card-body">
-                        <h5 class="card-title">Received at {{m.created_at}}</h5>
-                        <p class="card-text">{{m.message}}</p>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{m.id}}">
-                            Reply
-                        </button>
-                    </div>
-                </div>
-                 <div class="modal fade" id="exampleModal{{m.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                Reply
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="/create-message/{{m.creator.id}}/" method="POST">
-                                    {% csrf_token %}
-                                    {{ form.as_p }}
-                                    <input type="submit" class="btn btn-primary" value="Send">
-                                </form> 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="sent">
-            <h3>Sent</h3>
-            {% for m in sent %}
-                <div class="card">
-                    <div class="card-header">
-                       {% if m.to.avatar %}
-                            <img class="thumbnail" src="{{ m.to.avatar.url }}"/>
+                        {% if user.avatar %}
+                            <img class="thumbnail" src="{{user.avatar.url}}" alt="avatar image">
                         {% else %}
-                            <img class="thumbnail" src="{% static 'image/default.jpg' %}"/>
+                            <img class="thumbnail" src="{% static 'image/default.jpg' %}" alt="avatar image">
                         {% endif %}
-                        <a class="user-1" href="/user/{{ m.to.id }}">{{m.to.username}}</a>
+                        <a class="user-1" href="/chat/{{user.id}}">{{user.username}}</a>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Sent at {{m.created_at}}</h5>
-                        <p class="card-text">{{m.message}}</p>
-                    </div>
-                </div>
             {% endfor %}
         </div>
     </div>
