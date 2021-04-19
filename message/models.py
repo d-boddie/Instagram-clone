@@ -9,3 +9,5 @@ class Message(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     to = models.ForeignKey(InstagramUser, related_name='to',
                                 on_delete=models.CASCADE)
+    read = models.BooleanField(default=False)
+    total = models.IntegerField(default=0)
