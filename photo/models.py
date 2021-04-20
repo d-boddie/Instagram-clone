@@ -8,8 +8,8 @@ from authentication.models import InstagramUser
 
 
 class Photo(models.Model):
-    caption = models.CharField(max_length=280, null=True, blank=True)
     image = models.ImageField(upload_to='photos/', blank=True, null=True)
+    caption = models.CharField(max_length=280, null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     likes = models.ManyToManyField(InstagramUser)
     total_likes = models.IntegerField(default=0)
