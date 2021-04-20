@@ -125,9 +125,9 @@
                                         <a class="user" href="user/{{u.id}}">{{u.username}}</a>
                                         {% if u.username != request.user.username %}
                                             {% if u in request.user.friends.all %}
-                                                <a  class="follow-link" href="unfollow/{{u.id}}">Unfollow</a>
+                                            <a  class="follow-link" href="/unfollow/{{u.id}}"><button type="button" class="btn btn-danger">unfollow</button></a>
                                             {% else %}
-                                                <a  class="follow-link" href="follow/{{u.id}}">Follow</a>
+                                            <a  class="follow-link" href="/follow/{{u.id}}"><button type="button" class="btn btn-danger">follow</button></a>
                                             {% endif %}
                                         {% endif %}
                                     {% else %}
@@ -135,9 +135,9 @@
                                         <a class="user" href="user/{{u.id}}">{{u.username}}</a>
                                         {% if u.username != request.user.username %}
                                             {% if u in request.user.friends.all %}
-                                                <a  class="follow-link" href="unfollow/{{u.id}}">Unfollow</a>
+                                                <a class="follow-link" href="/unfollow/{{u.id}}"><button type="button" class="btn btn-danger">unfollow</button></a>
                                             {% else %}
-                                                <a  class="follow-link" href="follow/{{u.id}}">Follow</a>
+                                                <a class="follow-link" href="/follow/{{u.id}}"><button type="button" class="btn btn-danger">follow</button></a>
                                             {% endif %}
                                         {% endif %}
                                     {% endif %}

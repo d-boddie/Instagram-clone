@@ -20,9 +20,14 @@ body {
     display: inline;
   }
   
-  a {
-    text-decoration: none;
-    color: rgb(184, 28, 28);
+  .nav-link {
+    text-decoration: none  !important;
+    color: rgb(184, 28, 28) !important;
+  }
+
+  .nav-link:hover{
+    text-decoration: none  !important;
+    color: rgb(0, 0, 0) !important;
   }
   
   .image {
