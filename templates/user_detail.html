@@ -10,148 +10,147 @@
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 </head>
 <body>
-{% block content %}
+    {% block content %}
 
-<div class="profile">
+        <div class="profile">
 
-    {% if request.user.id == user_id %}
-        <select name="forma" onchange="location = this.value;">
-            <option></option>
-            <option value="/editprofile/{{user.id}}">Edit profile settings</option>
-            <option value="/editaccount/{{user.id}}">Edit account settings</option>
-        </select>
-    {% endif %}
-
-    <div class="data">
-
-
-    <h1>{{ heading }}</h1>
-    {% for post in posts %}
-        {% if post.avatar%}
-            <img id="profile-pic" src="{{post.avatar.url}}" alt="profile-pic"/>
-        {% else %}
-            <img id="profile-pic" src="{% static 'image/default.jpg' %}" alt="profile-pic"/>
-        {% endif %}
-        
-        <table>
-                <tr>
-                    {% if request.user.id != user_id %}
-                        {% if posts.first in request.user.friends.all %}
-                            <th><a href="/unfollow/{{ post.id }}" class="btn btn-primary">unfollow me</a></th>
-                        
-                    {% else %}
-                            <th><a href="/follow/{{ post.id }}" class="btn btn-primary">follow me</a></th>
-                        {% endif%}
-                    {% endif %}
-                </tr>
-                <tr>
-                    <th class="username">{{ post.username }} </th>
-                </tr>
-                <tr>
-                    <th>{{ post.first_name }} {{ post.last_name }}</th>
-                </tr>
-                <tr>
-                    <th>{{ post.email }}</th>
-                </tr>
-                <tr>
-                    <th>Following: {{ following }}</th>
-                    <th>Followers: {{ post.following.count }}</th>
-
-                </tr>
-            {% if post.bio or post.website %}
-                <tr>
-                    <th>{{ post.bio }}</th>
-                </tr>
-                <tr>
-                    <th><a href="{{post.website}}" target="_blank">{{ post.website }}</a></th>
-                </tr>
+            {% if request.user.id == user_id %}
+                <select name="forma" onchange="location = this.value;">
+                    <option></option>
+                    <option value="/editprofile/{{user.id}}">Edit profile settings</option>
+                    <option value="/editaccount/{{user.id}}">Edit account settings</option>
+                </select>
             {% endif %}
-        </table>
-    {% endfor %}
 
-    </br>
-    {% if request.user.id == user_id %}
-        <a id="mymessge" href="/message">
-            My Messages
-        </a></br>
-        <a id="delete" href="" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Delete Account
-        </a>
-    {% endif %}
-    <br>
-    {% if request.user.id != user_id %}
-        <a id="message" href="" data-bs-toggle="modal" data-bs-target="#messageModal">
-            Message me
-        </a>
-    {% endif %}
-    
+            <div class="data">
 
-    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+
+            <h1>{{ heading }}</h1>
+            {% for post in posts %}
+                {% if post.avatar%}
+                    <img id="profile-pic" src="{{post.avatar.url}}" alt="profile-pic"/>
+                {% else %}
+                    <img id="profile-pic" src="{% static 'image/default.jpg' %}" alt="profile-pic"/>
+                {% endif %}
+                
+                <table>
+                        <tr>
+                            {% if request.user.id != user_id %}
+                                {% if posts.first in request.user.friends.all %}
+                                    <th><a href="/unfollow/{{ post.id }}" class="btn btn-primary">unfollow me</a></th>
+                                
+                            {% else %}
+                                    <th><a href="/follow/{{ post.id }}" class="btn btn-primary">follow me</a></th>
+                                {% endif%}
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <th class="username">{{ post.username }} </th>
+                        </tr>
+                        <tr>
+                            <th>{{ post.first_name }} {{ post.last_name }}</th>
+                        </tr>
+                        <tr>
+                            <th>{{ post.email }}</th>
+                        </tr>
+                        <tr>
+                            <th>Following: {{ following }}</th>
+                            <th>Followers: {{ post.following.count }}</th>
+
+                        </tr>
+                    {% if post.bio or post.website %}
+                        <tr>
+                            <th>{{ post.bio }}</th>
+                        </tr>
+                        <tr>
+                            <th><a href="{{post.website}}" target="_blank">{{ post.website }}</a></th>
+                        </tr>
+                    {% endif %}
+                </table>
+            {% endfor %}
+
+            </br>
+            {% if request.user.id == user_id %}
+                <a id="mymessge" href="/message">
+                    My Messages
+                </a></br>
+                <a id="delete" href="" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Delete Account
+                </a>
+            {% endif %}
+            <br>
+            {% if request.user.id != user_id %}
+                <a id="message" href="" data-bs-toggle="modal" data-bs-target="#messageModal">
+                    Message me
+                </a>
+            {% endif %}
+            
+
+            <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            New Message
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/create-message/{{user_id}}/" method="POST">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <input type="submit" class="btn btn-primary" value="Send">
+                            </form> 
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+
+        <div class="contain">
+            {% for photo in photo %}
+                <div class="flex">
+                    <div class="card" style="width: 18rem;">
+                        {% if photo.image %}
+                            <a href="/photo/{{ photo.id}}/">
+                                <img class="photo" src="{{ photo.image.url }}" height='250px' width="250px">
+                            </a>
+                            <br/>
+                        {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{photo.poster.username}}</h5>
+                                <p class="card-text">{{photo.caption}}</p>
+                            </div>
+                        {{photo.total_likes}} Likes
+                        {% for person in photo.likes.all%}
+                            <p><strong>Liked by </strong>{{person.username}}</p>
+                        {%endfor%}
+                    </div>
+                </div>
+            {%endfor%}
+        </div>
+
+    {% endblock content %}
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    New Message
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/create-message/{{user_id}}/" method="POST">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <input type="submit" class="btn btn-primary" value="Send">
-                    </form> 
+                Are you sure?? You'll lose all your pictures 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <a href="/delete-user/{{user.id}}"><button type="button" class="btn btn-danger">Delete</button></a>
                 </div>
             </div>
         </div>
     </div>
-      <hr>
-</div>
-
-<div class="contain">
-{% for photo in photo %}
-    <div class="flex">
-        <div class="card" style="width: 18rem;">
-            {% if photo.image %}
-                <a href="/photo/{{ photo.id}}/">
-                    <img class="photo" src="{{ photo.image.url }}" height='250px' width="250px">
-                </a>
-                <br/>
-            {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{photo.poster.username}}</h5>
-                    <p class="card-text">{{photo.caption}}</p>
-                </div>
-            {{photo.total_likes}} Likes
-            {% for person in photo.likes.all%}
-                <p><strong>Liked by </strong>{{person.username}}</p>
-            {%endfor%}
-        </div>
-    </div>
-{%endfor%}
-
-{% endblock content %}
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            Are you sure?? You'll lose all your pictures 
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-            <a href="/delete-user/{{user.id}}"><button type="button" class="btn btn-danger">Delete</button></a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>
 </html>
 
