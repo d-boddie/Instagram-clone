@@ -11,17 +11,33 @@
 
         .frame {
             margin: 20px;
+            text-align: center;
+            background-color: lightgrey;
+            color: rgb(184, 28, 28) !important;
         }
+
+        .padding{
+            padding: 20px;
+        }
+
+        .btn-danger{
+            margin-bottom: 20px !important;
+        }
+
+
+
     </style>
 </head>
 <body>
     <div class="frame">
-        <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <h3>{{ header }}</h3>
-        {{ form.as_p}}
+        <div class="padding">
+            <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h3>Edit Profile</h3>
+            {{ form.as_p}}
+        </div>
 
-        <input type="submit" value="Submit!" />
+        <input class="btn btn-danger" type="submit" value="Submit!" />
         </form>
     </div>  
     <footer class="footer">

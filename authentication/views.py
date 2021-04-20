@@ -113,7 +113,7 @@ class LoginView(View):
                 login(request, new_user)
                 return redirect(request.GET.get('next', 'homepage'))
 
-        return redirect(request.GET.get('next', 'sign_up'))        
+        return redirect('login')        
 
 @login_required
 def logout_view(request):
@@ -148,6 +148,9 @@ def user_detail(request, user_id):
     friend = InstagramUser.objects.get(id=user_id)
     photo = Photo.objects.all().filter(poster_id=user_id)
     form = MessageForm()
+    follows = friend.friends.all()[1:]
+    friends = friend.following.all()
+    print(friends)
     return render(request, "user_detail.html", {
         'heading': 'Profile Page', 
         'photo':photo, 
@@ -155,6 +158,9 @@ def user_detail(request, user_id):
         'user_id': user_id,
         'form': form,
         'following': post.friends.count() - 1,
+        'number': photo.count(),
+        'follows': follows,
+        'friends': friends
          })
 
 

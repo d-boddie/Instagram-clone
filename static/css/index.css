@@ -42,14 +42,19 @@
 .user {
   font-weight: 700;
   text-decoration: none;
-  color: black;
+  color: rgb(184, 28, 28) !important;
   font-size: 20px;
+}
+
+.user:hover {
+  color: rgb(0, 0, 0) !important;
+  
 }
 
 .user-1 {
   font-weight: 700;
   text-decoration: none;
-  color: black;
+  color: rgb(184, 28, 28) !important;
   font-size: 25px;
   margin-left: 50px;
 }
@@ -112,9 +117,13 @@
 .follow-link{
   margin-left: 50px;
   text-decoration: none;
-  color: red;
+  color: black;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 700;
+}
+
+.follow-link:hover{
+  color: rgb(184, 28, 28) !important;
 }
 
 .follows{

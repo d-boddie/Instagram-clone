@@ -16,16 +16,102 @@
   
 .profile {
    margin: 25px;
+   text-align: center;
    
 }
 
 .username {
-   color: red;
-   font-size: 25px;
+   color: rgb(184, 28, 28) !important;
 }
 
 #profile-pic{
-   width:125px;
-   height:125px;
+   width:250px;
+   height:250px;
    border-radius:100%;
+}
+
+.right{
+   margin-right: 30px;
+   font-size: 20px;
+}
+
+.followers{
+   margin-top: 10px;
+}
+
+.details{
+   margin-top: 5px;
+   font-size: 20px;
+}
+
+.details a{
+   text-decoration: none;
+   color:rgb(184, 28, 28);
+}
+
+.details a:hover{
+   color: black;
+}
+
+#mymessage{
+   text-decoration: none;
+   color:rgb(184, 28, 28);
+   font-size:20px;
+}
+
+#mymessage:hover{
+   color:rgb(0, 0, 0)
+}
+
+#delete{
+   text-decoration: none;
+   color:rgb(184, 28, 28);
+   font-size:20px;
+}
+
+#delete:hover{
+   color:rgb(0, 0, 0)
+}
+
+.users{
+   width: 50px;
+   height: 50px;
+   border-radius: 100%;
+}
+
+.btn-danger{
+   position: absolute;
+   left: 400px
+}
+
+.amigos{
+   margin-top: 20px;
+}
+
+.modal-body{
+   overflow-y: auto !important;
+   height: 200px !important;
+}
+
+.modal-title{
+   text-align: center !important;
+}
+
+.user-1 {
+   font-weight: 700;
+   text-decoration: none;
+   color: rgb(184, 28, 28) !important;
+   font-size: 25px;
+   margin-left: 50px;
+ }
+
+.numbers{
+   text-decoration: none;
+   cursor: pointer;
+   color:rgb(184, 28, 28);
+
+}
+
+.numbers:hover{
+   color: black;
 }
