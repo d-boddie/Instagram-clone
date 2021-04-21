@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 import dotenv
 
+SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 

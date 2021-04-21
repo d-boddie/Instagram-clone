@@ -150,7 +150,7 @@ def user_detail(request, user_id):
     form = MessageForm()
     follows = friend.friends.all()[1:]
     friends = friend.following.all()
-    print(friends)
+    print(request.user.friends.all())
     return render(request, "user_detail.html", {
         'heading': 'Profile Page', 
         'photo':photo, 
