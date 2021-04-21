@@ -15,3 +15,6 @@ class Comment(models.Model):
     photo = models.ForeignKey(
         Photo, related_name="photo", on_delete=models.CASCADE, default=True)
     viewed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.creator

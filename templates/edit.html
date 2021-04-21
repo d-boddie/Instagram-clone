@@ -1,3 +1,4 @@
+{% load static %}
 {% include "base.html" %}
 <!DOCTYPE html>
 <html lang="en">
@@ -5,28 +6,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/edit.css' %}">
     <title>Document</title>
 
-    <style>
-
-        .frame {
-            margin: 20px;
-            text-align: center;
-            background-color: lightgrey;
-            color: rgb(184, 28, 28) !important;
-        }
-
-        .padding{
-            padding: 20px;
-        }
-
-        .btn-danger{
-            margin-bottom: 20px !important;
-        }
-
-
-
-    </style>
 </head>
 <body>
     <div class="frame">

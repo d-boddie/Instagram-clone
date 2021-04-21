@@ -1,0 +1,14 @@
+.frame {
+    margin: 20px;
+    text-align: center;
+    background-color: lightgrey;
+    color: rgb(184, 28, 28) !important;
+}
+
+.padding{
+    padding: 20px;
+}
+
+.btn-danger{
+    margin-bottom: 20px !important;
+}

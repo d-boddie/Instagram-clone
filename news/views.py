@@ -1,7 +1,18 @@
 from django.shortcuts import render
 import requests
 
-url = ('https://newsapi.org/v2/top-headlines?country=us&apiKey=017924f89d524708b72d888d6b90c9ad')
+import os
+
+from dotenv import load_dotenv
+load_dotenv()
+
+# Create your views here.
+
+API_KEY = os.getenv(
+    'NEWS_API_KEY'
+    )
+
+url = (f'https://newsapi.org/v2/top-headlines?country=us&apiKey={API_KEY}')
 
 
 def news(request):

@@ -11,3 +11,6 @@ class Message(models.Model):
                                 on_delete=models.CASCADE)
     read = models.BooleanField(default=False)
     total = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.creator
