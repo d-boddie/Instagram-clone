@@ -54,8 +54,7 @@ INSTALLED_APPS = [
     'about',
     'dogs',
     'user',
-    'message',
-    'error500'
+    'message'
 ]
 
 MIDDLEWARE = [
@@ -138,17 +137,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
 
-if DEBUG:
+STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),)
 
-  STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
-else:
-
-  STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 AUTH_USER_MODEL = 'authentication.InstagramUser'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'

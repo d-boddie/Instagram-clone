@@ -44,9 +44,11 @@
                             <a class="user" href="user/{{photo.poster_id}}">{{photo.poster.username}}</a>
                             {{photo.caption}}
                             <br>
+                            
                             <a id="comments" data-bs-toggle="modal" data-bs-target="#exampleModal{{photo.id}}">
                                 View all comments
                             </a>
+                            
                             <div class="modal fade" id="exampleModal{{photo.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
