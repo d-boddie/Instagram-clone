@@ -2,10 +2,18 @@ from django.shortcuts import render
 import requests
 from datetime import date
 from .forms import CovidForm
+import os
+
+from dotenv import load_dotenv
+load_dotenv()
 
 # Create your views here.
 
-USA = 'https://api.covidactnow.org/v2/states.json?apiKey=b7d6859963484ce1aa74581ae7f5d8cc'
+API_KEY = os.getenv(
+    'COVID_API_KEY'
+    )
+
+USA = f"https://api.covidactnow.org/v2/states.json?apiKey={API_KEY}"
 
 
 def cases(url):
@@ -44,25 +52,6 @@ def administered(url):
 
 
 def covid(request):
-    # form = CovidForm()
-    # if request.method == 'POST':
-    #     form = CovidForm(request.POST)
-    #     if form.is_valid():
-    #         try:
-    #             data = form.cleaned_data
-    #             url = f'https://api.covidactnow.org/v2/state/{data["name"]}.json?apiKey=b7d6859963484ce1aa74581ae7f5d8cc'
-    #             form = CovidForm()
-    #             data = data = {
-    #             'cases':cases(url),
-    #             'deaths':deaths(url),
-    #             'distributed':distributed(url),
-    #             'administered':administered(url),
-    #             'today': date.today(),
-    #             'form': form
-    #             }
-    #             return render(request, 'covid-19.html', data)
-    #         except Exception:
-    #             return render(request, '404.html')
 
     try:
         data = {
