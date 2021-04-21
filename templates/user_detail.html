@@ -32,15 +32,6 @@
                     <span class="right"><a class="numbers" data-bs-toggle="modal" data-bs-target="#following">{{ following }}</a>  following</span>
                 </div>
                 <br>
-
-                {% if request.user.id != user_id %}
-                    {% if posts.first in request.user.friends.all %}
-                        <p><a href="/unfollow/{{ post.id }}" class="btn btn-primary">unfollow me</a></p>
-                    
-                {% else %}
-                        <p><a href="/follow/{{ post.id }}" class="btn btn-primary">follow me</a></p>
-                    {% endif%}
-                {% endif %}
             
                 <p class="details">{{ post.first_name }} {{ post.last_name }}</p>
             
@@ -64,13 +55,20 @@
                     Delete Account
                 </a>
             {% endif %}
-            <br>
+    
             {% if request.user.id != user_id %}
                 <a id="message" href="" data-bs-toggle="modal" data-bs-target="#messageModal">
                     Message me
                 </a>
             {% endif %}
-            
+            {% if request.user.id != user_id %}
+                    {% if posts.first in request.user.friends.all %}
+                        <p><a href="/unfollow/{{ post.id }}" class="btn btn-danger top">unfollow me</a></p>
+                    
+                {% else %}
+                        <p><a href="/follow/{{ post.id }}" class="btn btn-danger top">follow me</a></p>
+                    {% endif%}
+                {% endif %}
 
             <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -83,7 +81,7 @@
                             <form action="/create-message/{{user_id}}/" method="POST">
                                 {% csrf_token %}
                                 {{ form.as_p }}
-                                <input type="submit" class="btn btn-primary" value="Send">
+                                <input type="submit" class="btn btn-danger" value="Send">
                             </form> 
                         </div>
                         <div class="modal-footer">
@@ -152,8 +150,13 @@
                                 {% else %}
                                     <img class="users" src="{% static 'image/default.jpg' %}" alt="profile-pic"/>
                                 {% endif %}
-                                <a class="user-1" href="user/{{ user.id}}">{{user.username}}</a>
-                                <button type="button" class="btn btn-danger">follow</button>
+                                {% if user in request.user.friends.all%}
+                                    <a class="user-1" href="user/{{ user.id}}">{{user.username}}</a>
+                                    <a  class="follow-link" href="/unfollow/{{user.id}}"><button type="button" class="btn btn-danger red">unfollow</button></a>
+                                {% else %}
+                                     <a class="user-1" href="user/{{ user.id}}">{{user.username}}</a>
+                                    <a  class="follow-link" href="/follow/{{user.id}}"><button type="button" class="btn btn-danger red">follow</button></a>
+                                {% endif %}
                             </div>
                         {% endfor %}
                     </div>
@@ -168,7 +171,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5>Following</h5>
+                        <h5>Followers</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -179,8 +182,13 @@
                                 {% else %}
                                     <img class="users" src="{% static 'image/default.jpg' %}" alt="profile-pic"/>
                                 {% endif %}
-                                <a class="user-1" href="user/{{ user.id}}">{{user.username}}</a>
-                                <a  class="follow-link" href="/follow/{{user.id}}"><button type="button" class="btn btn-danger">follow</button></a>
+                                {% if user in request.user.friends.all%}
+                                    <a class="user-1" href="user/{{ user.id}}">{{user.username}}</a>
+                                    <a  class="follow-link" href="/unfollow/{{user.id}}"><button type="button" class="btn btn-danger red">unfollow</button></a>
+                                {% else %}
+                                     <a class="user-1" href="user/{{ user.id}}">{{user.username}}</a>
+                                    <a  class="follow-link" href="/follow/{{user.id}}"><button type="button" class="btn btn-danger red">follow</button></a>
+                                {% endif %}
                             </div>
                         {% endfor %}
                     </div>

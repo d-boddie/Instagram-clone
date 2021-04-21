@@ -26,7 +26,7 @@
                             {% endif %}
                         <a class="user-1" href="/">{{m.creator.username}}</a>
                         <h5>{{m.created_at}}</h5>
-                        <p class="card-text"><a class="user-1" href="/chat/m.creator.id">New Message</a></p>
+                        <p class="card-text"><a class="user-1" href="/chat/{{m.creator.id}}">New Message</a></p>
                         {% endfor %}
                     </div>
                 </div>

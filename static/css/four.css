@@ -1,0 +1,10 @@
+body{
+    background-image: url('/static/image/lost.png');
+}
+
+.island{
+    margin-top: 15%;
+    text-align: center;
+    color: red;
+    font-size: 25px;
+}
